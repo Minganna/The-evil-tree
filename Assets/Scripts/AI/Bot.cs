@@ -11,18 +11,15 @@ public class Bot : MonoBehaviour
 {
     public NavMeshAgent agent;
     public GameObject target;
-    [SerializeField] TypeOfCreature tc;
+    public TypeOfCreature tc;
     CreaturesMaster cm;
-    GameObject lastTarget;
+    public bool runfromPlayer=false;
 
     // Start is called before the first frame update
     void Start()
     {
-        tc = TypeOfCreature.poop;
         agent = this.GetComponent<NavMeshAgent>();
         cm = FindObjectOfType<CreaturesMaster>();
-
-        FindTargetTochase();
 
     }
 
@@ -30,9 +27,13 @@ public class Bot : MonoBehaviour
     {
         if (tc == TypeOfCreature.poop)
         {
-            target = cm.GetPoopRandom(this);
-            lastTarget = target;
+            target = cm.GetPoopRandom();
+            
 
+        }
+        else
+        {
+            target = cm.GetBrainRandom();
         }
     }
 

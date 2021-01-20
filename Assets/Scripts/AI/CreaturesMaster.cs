@@ -7,9 +7,11 @@ public class CreaturesMaster : MonoBehaviour
 {
     int brainrandom, pooprandom;
     List<GameObject> targets=new List<GameObject>();
-    List<Bot> PoopMonsters, BrainMonsters;
+    List<Bot> creatures= new List<Bot>();
     GameObject Player;
     bool runfromPlayer=false;
+    Bot scaredBot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,54 +19,56 @@ public class CreaturesMaster : MonoBehaviour
         {
             targets.Add(targ);
         }
+        foreach (Bot creature in FindObjectsOfType<Bot>())
+        {
+            creatures.Add(creature);
+            if(creature.tc==TypeOfCreature.brain)
+            {
+                creature.target = GetBrainRandom();
+            }
+            if (creature.tc == TypeOfCreature.poop)
+            {
+                creature.target = GetPoopRandom();
+            }
+        }
         Player = GameObject.FindGameObjectWithTag("Player");
-        BrainMonsters = new List<Bot>();
-        PoopMonsters = new List<Bot>();
         brainrandom = getRandomTarget();
         pooprandom = getRandomTarget();
     }
 
      int getRandomTarget()
     {
-        int randomT;
-        return randomT = Random.Range(0, targets.Count);
+        return Random.Range(0, targets.Count);
 
     }
 
-    public GameObject GetBrainRandom(Bot brainMonster)
+    public GameObject GetBrainRandom()
     {
-        if(!BrainMonsters.Contains(brainMonster))
-        {
-            BrainMonsters.Add(brainMonster);
-        }
       
         return targets[brainrandom];
     }
-    public GameObject GetPoopRandom(Bot poopMonster)
+    public GameObject GetPoopRandom()
     {
-        if(!PoopMonsters.Contains(poopMonster))
-        {
-            PoopMonsters.Add(poopMonster);
-        }
         return targets[pooprandom];
     }
     void Update()
     {
-        foreach(Bot creature in PoopMonsters)
+        foreach(Bot creature in creatures)
         {
+
             if (creature.target)
             {
-                if(!runfromPlayer)
+                if (!creature.runfromPlayer)
                 {
-                    if (Vector3.Distance(creature.transform.position, Player.transform.position) > 1 )
+                    if (Vector3.Distance(creature.transform.position, Player.transform.position) > 1)
                     {
-                        creature.agent.speed = 3.5f;
                         creature.FindTargetTochase();
                         creature.Seek(creature.target.transform.position);
                     }
-                    if (Input.GetKeyDown(KeyCode.E))
+                    else if (Input.GetKeyDown(KeyCode.E))
                     {
                         runfromPlayer = true;
+                        scaredBot = creature;
                     }
                 }
                 else
@@ -72,17 +76,35 @@ public class CreaturesMaster : MonoBehaviour
                     if (Vector3.Distance(creature.transform.position, Player.transform.position) < 10)
                     {
                         creature.target = Player;
-                        creature.agent.speed = 7;
                         creature.Evade();
                     }
                     else
                     {
-                        brainrandom = getRandomTarget();
-                        pooprandom = getRandomTarget();
-                        runfromPlayer = false;
+                        if(scaredBot)
+                        {
+                            if (scaredBot.tc == TypeOfCreature.brain)
+                            {
+                                brainrandom = getRandomTarget();
+                            }
+                            else
+                            {
+                                pooprandom = getRandomTarget();
+                            }
+                        }
+                       
+                        creature.runfromPlayer = false;
+                        scaredBot = null;
                     }
-                    
+
                 }
+                if(scaredBot)
+                {
+                    if (runfromPlayer && creature.tc == scaredBot.tc)
+                    {
+                        creature.runfromPlayer = runfromPlayer;
+                    }
+                }
+
 
 
             }
