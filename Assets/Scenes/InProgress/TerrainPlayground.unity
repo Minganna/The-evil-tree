@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 647154321162abb48851cee51a901ef1, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -199,8 +199,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391403202}
-  m_LocalRotation: {x: -0.12404008, y: 0.083838314, z: -0.010522356, w: -0.98867315}
-  m_LocalPosition: {x: 0.3410949, y: 1.0483133, z: -1.8722036}
+  m_LocalRotation: {x: -0.026362715, y: -0.35354024, z: -0.009970898, w: 0.9349946}
+  m_LocalPosition: {x: 795.19995, y: 0.67965317, z: 188.50798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -500,9 +500,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc82c0d57779c014d8c05150952787c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomHeightRange: {x: 0, y: 0.1}
+  randomHeightRange: {x: 0, y: 0.8}
   heightMapImage: {fileID: 2800000, guid: 28458dd00e8b020478c6e2a468654711, type: 3}
   heightMapScale: {x: 2, y: 0.5, z: 2}
+  resetTerrain: 1
+  perlinXScale: 0.002
+  perlinYScale: 0.002
+  perlinOffsetX: 0
+  perlinOffsetY: 4531
+  perlinOctaves: 3
+  perlinPersistance: 7
+  perlinHeightScale: 0.063
+  perlinParameters:
+  - perlinXScale: 0.001
+    perlinYScale: 0.001
+    perlinOffsetX: 100
+    perlinOffsetY: 200
+    perlinOctaves: 2
+    perlinPersistance: 2
+    perlinHeightScale: 0.01
+    remove: 0
+  - perlinXScale: 0.01
+    perlinYScale: 0.01
+    perlinOffsetX: 0
+    perlinOffsetY: 0
+    perlinOctaves: 3
+    perlinPersistance: 8
+    perlinHeightScale: 0.03
+    remove: 0
+  - perlinXScale: 0.003
+    perlinYScale: 0.003
+    perlinOffsetX: 0
+    perlinOffsetY: 0
+    perlinOctaves: 3
+    perlinPersistance: 8
+    perlinHeightScale: 0
+    remove: 0
+  voronoiFallOff: 6.73
+  voronoiDropOff: 6.98
+  voronoiMinHeight: 0.272
+  voronoiMaxHeight: 0.39
+  voronoiPeaks: 2
+  voronoiType: 4
+  MPDheightMin: -2
+  MPDheightMax: 2
+  MPDheightDampenerPower: 2
+  MPDroughness: 2
+  smoothAmount: 5
   terrain: {fileID: 1972857453}
   terrainData: {fileID: 15600000, guid: 68b5398e801a2664cbc8db7f21c31eff, type: 2}
 --- !u!154 &1972857452
@@ -572,31 +616,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 794.11707
       objectReference: {fileID: 0}
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 189.79648
       objectReference: {fileID: 0}
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.021475965
       objectReference: {fileID: 0}
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.33670074
       objectReference: {fileID: 0}
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.007679347
       objectReference: {fileID: 0}
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.94133544
       objectReference: {fileID: 0}
     - target: {fileID: 2494600502187354469, guid: 5fca62c48400490439e3484ccdbb6973, type: 3}
       propertyPath: m_RootOrder
