@@ -64,6 +64,60 @@ public class CustomTerrain : MonoBehaviour
         new SplatHeights()
     };
 
+    //Vegetation
+    [System.Serializable]
+    public class Vegetation
+    {
+        public GameObject mesh;
+        public float minHeight = 0.1f;
+        public float maxHeight = 0.2f;
+        public float minSlope = 0;
+        public float maxSlope = 90;
+        public float minScale = 0.5f;
+        public float maxScale = 1.0f;
+        public Color colour1 = Color.white;
+        public Color colour2 = Color.white;
+        public Color lightColour = Color.white;
+        public float minRotation = 0;
+        public float maxRotation = 360;
+        public float density = 0.5f;
+        public bool remove = false;
+
+    }
+
+    public List<Vegetation> vegetations = new List<Vegetation>()
+    {
+        new Vegetation()
+    };
+
+    public int maximumTree = 5000;
+    public int treeSpacing = 5;
+
+    //Details
+
+    [System.Serializable]
+    public class Details
+    {
+        public GameObject prototype=null;
+        public Texture2D prototypeTexture = null;
+        public float minHeight = 0.1f;
+        public float maxHeight = 0.2f;
+        public float minSlope = 0;
+        public float maxSlope = 90;
+        public float overlap = 0.01f;
+        public float feather = 0.05f;
+        public float density = 0.5f;
+        public bool remove = false;
+    }
+
+    public List<Details> details = new List<Details>()
+    {
+        new Details()
+    };
+    public int maximumDetails=5000;
+    public int detailsSpacing=5;
+
+
     //VORONOI
     public float voronoiFallOff=0.2f;
     public float voronoiDropOff=0.6f;
@@ -119,6 +173,171 @@ public class CustomTerrain : MonoBehaviour
             }
         }
         return neighbours;
+    }
+
+    public void AddDetails()
+    {
+        DetailPrototype[] newDetailPrototypes;
+        newDetailPrototypes = new DetailPrototype[details.Count];
+        int dindex = 0;
+        foreach(Details d in details)
+        {
+            newDetailPrototypes[dindex] = new DetailPrototype();
+            newDetailPrototypes[dindex].prototype = d.prototype;
+            newDetailPrototypes[dindex].prototypeTexture = d.prototypeTexture;
+            newDetailPrototypes[dindex].healthyColor = Color.white;
+            if(newDetailPrototypes[dindex].prototype)
+            {
+                newDetailPrototypes[dindex].usePrototypeMesh = true;
+                newDetailPrototypes[dindex].renderMode = DetailRenderMode.VertexLit;
+            }
+            else
+            {
+                newDetailPrototypes[dindex].usePrototypeMesh = false;
+                newDetailPrototypes[dindex].renderMode = DetailRenderMode.GrassBillboard;
+            }
+            dindex++;
+        }
+        terrainData.detailPrototypes = newDetailPrototypes;
+
+        for(int i=0;i<terrainData.detailPrototypes.Length;i++)
+        {
+            int[,] detailsMap = new int[terrainData.detailWidth, terrainData.detailHeight];
+            for(int y=0;y<terrainData.detailHeight;y+=detailsSpacing)
+            {
+                for(int x=0;x<terrainData.detailWidth;x+=detailsSpacing)
+                {
+                    if(UnityEngine.Random.Range(0.0f,1.0f)>details[i].density)
+                    {
+                        continue;
+                    }
+                    detailsMap[y, x] = 1;
+                }
+            }
+            terrainData.SetDetailLayer(0, 0, i, detailsMap);
+        }
+    }
+
+    public void AddNewDetail()
+    {
+        details.Add(new Details());
+    }
+
+    public void RemoveDetail()
+    {
+        List<Details> keptDetails = new List<Details>();
+        for (int i = 0; i < details.Count; i++)
+        {
+            if (!details[i].remove)
+            {
+                keptDetails.Add(details[i]);
+            }
+        }
+        if (keptDetails.Count == 0) //don't want to keep any
+        {
+            keptDetails.Add(details[0]); //add at least 1
+        }
+        details = keptDetails;
+    }
+
+    public void PlantVegetation()
+    {
+        TreePrototype[] newTreePrototypes;
+        newTreePrototypes = new TreePrototype[vegetations.Count];
+        int tindex = 0;
+        foreach (Vegetation t in vegetations)
+        {
+            newTreePrototypes[tindex] = new TreePrototype();
+            newTreePrototypes[tindex].prefab = t.mesh;
+            tindex++;
+        }
+        terrainData.treePrototypes = newTreePrototypes;
+
+        List<TreeInstance> allVegetation = new List<TreeInstance>();
+        for (int z = 0; z < terrainData.size.z; z += treeSpacing)
+        {
+            for (int x = 0; x < terrainData.size.x; x += treeSpacing)
+            {
+                for (int tp = 0; tp < terrainData.treePrototypes.Length; tp++)
+                {
+                    if (UnityEngine.Random.Range(0.0f, 1.0f) > vegetations[tp].density) break;
+
+                    float thisHeight = terrainData.GetHeight(x, z) / terrainData.size.y;
+                    float thisHeightStart = vegetations[tp].minHeight;
+                    float thisHeightEnd = vegetations[tp].maxHeight;
+
+                    float steepness = terrainData.GetSteepness(x / (float)terrainData.size.x,
+                                                               z / (float)terrainData.size.z);
+
+                    if ((thisHeight >= thisHeightStart && thisHeight <= thisHeightEnd) &&
+                        (steepness >= vegetations[tp].minSlope && steepness <= vegetations[tp].maxSlope))
+                    {
+                        TreeInstance instance = new TreeInstance();
+                        instance.position = new Vector3((x + UnityEngine.Random.Range(-5.0f, 5.0f)) / terrainData.size.x,
+                                                        terrainData.GetHeight(x, z) / terrainData.size.y,
+                                                        (z + UnityEngine.Random.Range(-5.0f, 5.0f)) / terrainData.size.z);
+
+                        Vector3 treeWorldPos = new Vector3(instance.position.x * terrainData.size.x,
+                            instance.position.y * terrainData.size.y,
+                            instance.position.z * terrainData.size.z)
+                                                         + this.transform.position;
+
+                        RaycastHit hit;
+                        int layerMask = 1 << terrainLayer;
+
+                        if (Physics.Raycast(treeWorldPos + new Vector3(0, 10, 0), -Vector3.up, out hit, 100, layerMask) ||
+                            Physics.Raycast(treeWorldPos - new Vector3(0, 10, 0), Vector3.up, out hit, 100, layerMask))
+                        {
+                            float treeHeight = (hit.point.y - this.transform.position.y) / terrainData.size.y;
+                            instance.position = new Vector3(instance.position.x,
+                                                             treeHeight,
+                                                             instance.position.z);
+
+                            instance.rotation = UnityEngine.Random.Range(vegetations[tp].minRotation,
+                                                                         vegetations[tp].maxRotation);
+                            instance.prototypeIndex = tp;
+                            instance.color = Color.Lerp(vegetations[tp].colour1,
+                                                        vegetations[tp].colour2,
+                                                        UnityEngine.Random.Range(0.0f, 1.0f));
+                            instance.lightmapColor = vegetations[tp].lightColour;
+                            float s = UnityEngine.Random.Range(vegetations[tp].minScale, vegetations[tp].maxScale);
+                            instance.heightScale = s;
+                            instance.widthScale = s;
+
+                            allVegetation.Add(instance);
+                            if (allVegetation.Count >= maximumTree) goto TREESDONE;
+                        }
+
+
+                    }
+                }
+            }
+        }
+    TREESDONE:
+        terrainData.treeInstances = allVegetation.ToArray();
+
+    }
+
+    public void AddNewVegetation()
+    {
+       vegetations.Add(new Vegetation());
+    }
+
+    public void RemoveVegetation()
+    {
+        List<Vegetation> keptVegetation = new List<Vegetation>();
+        for (int i = 0; i < vegetations.Count; i++)
+        {
+            if (!vegetations[i].remove)
+            {
+                keptVegetation.Add(vegetations[i]);
+            }
+        }
+        if (keptVegetation.Count == 0) //don't want to keep any
+        {
+            keptVegetation.Add(vegetations[0]); //add at least 1
+        }
+        vegetations = keptVegetation;
     }
 
     public void AddNewSplatHeight()
@@ -493,39 +712,64 @@ public class CustomTerrain : MonoBehaviour
         terrainData = Terrain.activeTerrain.terrainData;
     }
 
+    public enum TagType { Tag=0,Layer=1}
+    [SerializeField]
+    int terrainLayer = -1;
     private void Awake()
     {
         SerializedObject tagManager = new SerializedObject(
                                     AssetDatabase.LoadAllAssetsAtPath("projectSettings/TagManager.asset")[0]);
         SerializedProperty tagsProp = tagManager.FindProperty("tags");
 
-        AddTag(tagsProp, "Terrain");
-        AddTag(tagsProp, "Cloud");
-        AddTag(tagsProp, "Shore");
+        AddTag(tagsProp, "Terrain",TagType.Tag);
+        AddTag(tagsProp, "Cloud", TagType.Tag);
+        AddTag(tagsProp, "Shore", TagType.Tag);
 
         //apply tag changes to tag database
         tagManager.ApplyModifiedProperties();
 
+        SerializedProperty layerProp = tagManager.FindProperty("layers");
+        terrainLayer = AddTag(layerProp, "Terrain", TagType.Layer);
+        tagManager.ApplyModifiedProperties();
+
         //take this object
         this.gameObject.tag = "Terrain";
+        this.gameObject.layer = terrainLayer;
     }
 
-    void AddTag(SerializedProperty tagsProp,string newTag)
+    int AddTag(SerializedProperty tagsProp,string newTag,TagType tType)
     {
         bool found = false;
+        //ensure the tag doesn't already exist
         for(int i=0;i<tagsProp.arraySize;i++)
         {
             SerializedProperty t = tagsProp.GetArrayElementAtIndex(i);
-            if (t.stringValue.Equals(newTag)) { found = true;break; }
+            if (t.stringValue.Equals(newTag)) { found = true;return i; }
 
         }
         //add your tag
-        if(!found)
+        if(!found&&tType==TagType.Tag)
         {
             tagsProp.InsertArrayElementAtIndex(0);
             SerializedProperty newTagProp = tagsProp.GetArrayElementAtIndex(0);
             newTagProp.stringValue = newTag;
         }
+        //add a new Layer
+        else if(!found &&tType==TagType.Layer)
+        {
+            for(int j=8;j<tagsProp.arraySize;j++)
+            {
+                SerializedProperty newLayer = tagsProp.GetArrayElementAtIndex(j);
+                //add layer in next empty slot
+                if(newLayer.stringValue=="")
+                {
+                    Debug.Log("Adding New Layer: " + newTag);
+                    newLayer.stringValue = newTag;
+                    return j;
+                }
+            }
+        }
+        return -1;
     }
 
 

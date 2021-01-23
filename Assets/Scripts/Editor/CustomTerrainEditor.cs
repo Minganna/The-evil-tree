@@ -32,6 +32,16 @@ public class CustomTerrainEditor : Editor
 
     SerializedProperty smoothAmount;
 
+    GUITableState vegetationTable;
+    SerializedProperty vegetations;
+    SerializedProperty maximumTree;
+    SerializedProperty treeSpacing;
+
+    GUITableState detailTable;
+    SerializedProperty details;
+    SerializedProperty maximumDetails;
+    SerializedProperty detailsSpacing;
+
     GUITableState splatMapTable;
     SerializedProperty splatHeight;
 
@@ -47,6 +57,14 @@ public class CustomTerrainEditor : Editor
     bool showMidPointDisplacement=false;
     bool showSmooth = false;
     bool showSplatMaps = false;
+    bool showheights = false;
+    bool showVegetation=false;
+    bool showDetails = false;
+
+
+    //HeighMap Texture
+    Texture2D hmTexture;
+    string fileName = "myTerrainTexture";
 
     private void OnEnable()
     {
@@ -76,6 +94,17 @@ public class CustomTerrainEditor : Editor
         smoothAmount = serializedObject.FindProperty("smoothAmount");
         splatMapTable = new GUITableState("splatMapTable");
         splatHeight = serializedObject.FindProperty("splatHeights");
+        vegetationTable = new GUITableState("vegetationTable");
+        vegetations = serializedObject.FindProperty("vegetations");
+        maximumTree= serializedObject.FindProperty("maximumTree");
+        treeSpacing= serializedObject.FindProperty("treeSpacing");
+        detailTable = new GUITableState("detailTable");
+        details = serializedObject.FindProperty("details");
+        maximumDetails = serializedObject.FindProperty("maximumDetails");
+        detailsSpacing = serializedObject.FindProperty("detailsSpacing");
+
+
+        hmTexture = new Texture2D(513, 513, TextureFormat.ARGB32, false);
 ;    }
     Vector2 scrollPos;
     public override void OnInspectorGUI()
@@ -208,6 +237,59 @@ public class CustomTerrainEditor : Editor
             }
         }
 
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        GUILayout.Label("Vegetation and Details", EditorStyles.boldLabel);
+        showVegetation = EditorGUILayout.Foldout(showVegetation, "Vegetation");
+        if (showVegetation)
+        {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Vegetation", EditorStyles.boldLabel);
+            EditorGUILayout.IntSlider(maximumTree, 0, 10000, new GUIContent("Maximum trees"));
+            EditorGUILayout.IntSlider(treeSpacing, 0, 20, new GUIContent("Tree spacing"));
+            vegetationTable = GUITableLayout.DrawTable(vegetationTable, vegetations);
+            GUILayout.Space(20);
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("+"))
+            {
+                terrain.AddNewVegetation();
+            }
+            if (GUILayout.Button("-"))
+            {
+                terrain.RemoveVegetation();
+            }
+            EditorGUILayout.EndHorizontal();
+            if (GUILayout.Button("Plant Vegetation"))
+            {
+                terrain.PlantVegetation();
+                GUIUtility.ExitGUI();
+            }
+        }
+        showDetails = EditorGUILayout.Foldout(showDetails, "Details");
+        if (showDetails)
+        {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Details", EditorStyles.boldLabel);
+            EditorGUILayout.IntSlider(maximumDetails, 0, 10000, new GUIContent("Maximum Details"));
+            EditorGUILayout.IntSlider(detailsSpacing, 0, 20, new GUIContent("Details spacing"));
+            vegetationTable = GUITableLayout.DrawTable(detailTable, details);
+            GUILayout.Space(20);
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("+"))
+            {
+                terrain.AddNewDetail();
+            }
+            if (GUILayout.Button("-"))
+            {
+                terrain.RemoveDetail();
+            }
+            EditorGUILayout.EndHorizontal();
+            if (GUILayout.Button("Add the Details"))
+            {
+                terrain.AddDetails();
+                GUIUtility.ExitGUI();
+            }
+        }
+
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         GUILayout.Label("Common Stuff", EditorStyles.boldLabel);
@@ -220,6 +302,48 @@ public class CustomTerrainEditor : Editor
             {
                 terrain.Smooth();
             }
+        }
+        showheights = EditorGUILayout.Foldout(showheights, "Display and save height map");
+        if(showheights)
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            fileName = EditorGUILayout.TextField("Texture Name", fileName);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            int hmtSize = (int)(EditorGUIUtility.currentViewWidth - 100);
+            GUILayout.Label(hmTexture, GUILayout.Width(hmtSize), GUILayout.Height(hmtSize));
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Refresh", GUILayout.Width(hmtSize)))
+            {
+                float[,] heightMap = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
+                for(int y=0;y<terrain.terrainData.heightmapHeight; y++)
+                {
+                    for(int x=0;x<terrain.terrainData.heightmapWidth; x++)
+                    {
+                        hmTexture.SetPixel(x,y,new Color(heightMap[x,y],heightMap[x,y],heightMap[x,y],1));
+                    }
+                }
+                hmTexture.Apply();
+            }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Save", GUILayout.Width(hmtSize)))
+            {
+                byte[] bytes = hmTexture.EncodeToPNG();
+                System.IO.Directory.CreateDirectory(Application.dataPath + "/SavedTextures/");
+                System.IO.File.WriteAllBytes(Application.dataPath + "/SavedTextures/" + fileName + ".png", bytes);
+            }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
         }
         if (GUILayout.Button("Reset Terrain"))
         {
