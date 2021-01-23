@@ -42,6 +42,28 @@ public class CustomTerrain : MonoBehaviour
         new PerlinParameters()
     };
 
+    //SPLATMAPS
+    [System.Serializable]
+    public class SplatHeights
+    {
+        public Texture2D texture = null;
+        public float minHeight = 0.1f;
+        public float maxHeight = 0.2f;
+        public Vector2 Slope = new Vector2(0.0f, 1.5f);
+        public Vector2 tileOffset = new Vector2(0, 0);
+        public Vector2 tileSize = new Vector2(50, 50);
+        public float offset = 0.01f;
+        public Vector2 NoiseScale=new Vector2(0.01f, 0.01f);
+        public float splatNoiseScaler = 0.1f;
+        public bool remove = false;
+
+    }
+
+    public List<SplatHeights> splatHeights = new List<SplatHeights>()
+    {
+        new SplatHeights()
+    };
+
     //VORONOI
     public float voronoiFallOff=0.2f;
     public float voronoiDropOff=0.6f;
@@ -77,7 +99,6 @@ public class CustomTerrain : MonoBehaviour
         }
     }
 
-
     List<Vector2> GenerateNeighbours(Vector2 pos, int width, int height)
     {
         List<Vector2> neighbours = new List<Vector2>();
@@ -99,6 +120,113 @@ public class CustomTerrain : MonoBehaviour
         }
         return neighbours;
     }
+
+    public void AddNewSplatHeight()
+    {
+        splatHeights.Add(new SplatHeights());
+    }
+
+    public void RemoveSplatHeight()
+    {
+        List<SplatHeights> kepSplatHeights = new List<SplatHeights>();
+        for (int i = 0; i < splatHeights.Count; i++)
+        {
+            if (!splatHeights[i].remove)
+            {
+                kepSplatHeights.Add(splatHeights[i]);
+            }
+        }
+        if (kepSplatHeights.Count == 0) //don't want to keep any
+        {
+            kepSplatHeights.Add(splatHeights[0]); //add at least 1
+        }
+        splatHeights = kepSplatHeights;
+    }
+
+    float GetSteepness(float[,]heightmap,int x,int y,int width,int height)
+    {
+        float h = heightmap[x, y];
+        int nx = x + 1;
+        int ny = y + 1;
+        //if on the upper edge of the map find gradient by going backwards
+        if(nx>width-1)
+        {
+            nx = x - 1;
+        }
+        if(ny>height-1)
+        {
+            ny = y - 1;
+        }
+        float dx = heightmap[nx, y] - h;
+        float dy = heightmap[x, ny] - h;
+        Vector2 gradient = new Vector2(dx, dy);
+        float steep = gradient.magnitude;
+        return steep;
+    }
+
+    public void SplatMaps()
+    {
+        TerrainLayer[] newSplatPrototype;
+        newSplatPrototype = new TerrainLayer[splatHeights.Count];
+        int spindex = 0;
+        foreach(SplatHeights sh in splatHeights)
+        {
+            newSplatPrototype[spindex] = new TerrainLayer();
+            newSplatPrototype[spindex].diffuseTexture = sh.texture;
+            newSplatPrototype[spindex].tileOffset = sh.tileOffset;
+            newSplatPrototype[spindex].tileSize = sh.tileSize;
+            newSplatPrototype[spindex].diffuseTexture.Apply(true);
+            string path = "Assets/TerrainsTextures/New Terrain Layer" + spindex + ".terrainlayer";
+            AssetDatabase.CreateAsset(newSplatPrototype[spindex], path);
+            spindex++;
+            Selection.activeObject = this.gameObject;
+        }
+        terrainData.terrainLayers = newSplatPrototype;
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        float[,,] splatMapData = new float[terrainData.alphamapWidth, terrainData.alphamapHeight, terrainData.alphamapLayers];
+        for(int y=0;y<terrainData.alphamapHeight;y++)
+        {
+            for(int x=0;x<terrainData.alphamapWidth;x++)
+            {
+                float[] splat = new float[terrainData.alphamapLayers];
+                for(int i=0;i<splatHeights.Count;i++)
+                {
+                    float noise = Mathf.PerlinNoise(x * splatHeights[i].NoiseScale.x, y * splatHeights[i].NoiseScale.y) * splatHeights[i].splatNoiseScaler;
+                    float offset = splatHeights[i].offset+ noise;
+                    float thisHeightStart = splatHeights[i].minHeight-offset;
+                    float thisHeightStop = splatHeights[i].maxHeight+offset;
+                    //float steepness = GetSteepness(heightMap, y, x, terrainData.heightmapHeight, terrainData.heightmapWidth);
+                    float steepness = terrainData.GetSteepness(y / (float)terrainData.alphamapHeight, x / (float)terrainData.alphamapWidth);
+                    if((heightMap[x,y]>=thisHeightStart&&heightMap[x,y]<=thisHeightStop)&&
+                        (steepness>=splatHeights[i].Slope.x&&steepness<=splatHeights[i].Slope.y))
+                    {
+                        splat[i] = 1;
+                    }
+                }
+                NormalizeVector(splat);
+                for(int j=0;j<splatHeights.Count;j++)
+                {
+                    splatMapData[x, y, j] = splat[j];
+                }
+            }
+        }
+
+        terrainData.SetAlphamaps(0, 0, splatMapData);
+    }
+
+    void NormalizeVector(float[]v)
+    {
+        float total = 0;
+        for(int i=0;i<v.Length;i++)
+        {
+            total += v[i];
+        }
+        for (int i=0;i<v.Length;i++)
+        {
+            v[i] /= total;
+        }
+    }
+
     public void Smooth()
     {
         float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);

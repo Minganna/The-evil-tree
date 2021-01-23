@@ -32,6 +32,9 @@ public class CustomTerrainEditor : Editor
 
     SerializedProperty smoothAmount;
 
+    GUITableState splatMapTable;
+    SerializedProperty splatHeight;
+
     GUITableState perlinParameterTable;
     SerializedProperty PerlinParameters;
 
@@ -43,6 +46,7 @@ public class CustomTerrainEditor : Editor
     bool showVoronoi = false;
     bool showMidPointDisplacement=false;
     bool showSmooth = false;
+    bool showSplatMaps = false;
 
     private void OnEnable()
     {
@@ -70,11 +74,21 @@ public class CustomTerrainEditor : Editor
         MPDheightDampenerPower = serializedObject.FindProperty("MPDheightDampenerPower");
         MPDroughness = serializedObject.FindProperty("MPDroughness");
         smoothAmount = serializedObject.FindProperty("smoothAmount");
-    }
+        splatMapTable = new GUITableState("splatMapTable");
+        splatHeight = serializedObject.FindProperty("splatHeights");
+;    }
+    Vector2 scrollPos;
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         CustomTerrain terrain = (CustomTerrain)target;
+
+        //Scrollbar Starting Code
+        Rect r = EditorGUILayout.BeginVertical();
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(r.width), GUILayout.Height(r.height));
+        EditorGUI.indentLevel++;
+
+
         EditorGUILayout.PropertyField(resetTerrain);
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         GUILayout.Label("Modify Terrain", EditorStyles.boldLabel);
@@ -168,8 +182,35 @@ public class CustomTerrainEditor : Editor
                 terrain.MidPointMisplacement();
             }
         }
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        GUILayout.Label("Apply Textures", EditorStyles.boldLabel);
+        showSplatMaps = EditorGUILayout.Foldout(showSplatMaps, "Splat Maps");
+        if(showSplatMaps)
+        {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Splat Maps", EditorStyles.boldLabel);
+            splatMapTable = GUITableLayout.DrawTable(splatMapTable, splatHeight);
+            GUILayout.Space(20);
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("+"))
+            {
+                terrain.AddNewSplatHeight();
+            }
+            if (GUILayout.Button("-"))
+            {
+                terrain.RemoveSplatHeight();
+            }
+            EditorGUILayout.EndHorizontal();
+            if(GUILayout.Button("Apply SplatMaps"))
+            {
+                terrain.SplatMaps();
+                GUIUtility.ExitGUI();
+            }
+        }
+
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        GUILayout.Label("Common Stuff", EditorStyles.boldLabel);
 
         showSmooth = EditorGUILayout.Foldout(showSmooth, "Smooth Terrain");
         if (showSmooth)
@@ -184,6 +225,10 @@ public class CustomTerrainEditor : Editor
         {
             terrain.ResetTerrain();
         }
+
+        //Scrollbar ending code
+        EditorGUILayout.EndScrollView();
+        EditorGUILayout.EndVertical();
 
         serializedObject.ApplyModifiedProperties();
     }

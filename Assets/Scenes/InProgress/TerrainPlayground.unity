@@ -217,9 +217,10 @@ GameObject:
   - component: {fileID: 1062202901}
   - component: {fileID: 1062202900}
   - component: {fileID: 1062202899}
+  - component: {fileID: 1062202902}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -282,6 +283,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1062202902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062202898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc82c0d57779c014d8c05150952787c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomHeightRange: {x: 0, y: 0.1}
+  heightMapImage: {fileID: 0}
+  heightMapScale: {x: 1, y: 1, z: 1}
+  resetTerrain: 1
+  perlinXScale: 0.01
+  perlinYScale: 0.01
+  perlinOffsetX: 0
+  perlinOffsetY: 0
+  perlinOctaves: 3
+  perlinPersistance: 8
+  perlinHeightScale: 0.09
+  perlinParameters:
+  - perlinXScale: 0.01
+    perlinYScale: 0.01
+    perlinOffsetX: 0
+    perlinOffsetY: 0
+    perlinOctaves: 3
+    perlinPersistance: 8
+    perlinHeightScale: 0.09
+    remove: 0
+  splatHeights:
+  - texture: {fileID: 0}
+    minHeight: 0.1
+    maxHeight: 0.2
+    Slope: {x: 0, y: 1.5}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.01, y: 0.01}
+    splatNoiseScaler: 0.1
+    remove: 0
+  voronoiFallOff: 0.2
+  voronoiDropOff: 0.6
+  voronoiMinHeight: 0.1
+  voronoiMaxHeight: 0.5
+  voronoiPeaks: 5
+  voronoiType: 2
+  MPDheightMin: -2
+  MPDheightMax: 2
+  MPDheightDampenerPower: 2
+  MPDroughness: 2
+  smoothAmount: 2
+  terrain: {fileID: 1062202900}
+  terrainData: {fileID: 15600000, guid: d0a5549e89cfd4b429ab44327256491d, type: 2}
 --- !u!1 &1088475817
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +592,47 @@ MonoBehaviour:
     perlinOctaves: 3
     perlinPersistance: 8
     perlinHeightScale: 0
+    remove: 0
+  splatHeights:
+  - texture: {fileID: 2800000, guid: 858e483d613d848cb935156b41553e4d, type: 3}
+    minHeight: 0
+    maxHeight: 0.05
+    Slope: {x: 0, y: 40}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 10, y: 10}
+    offset: 0.01
+    NoiseScale: {x: 0.1, y: 0.1}
+    splatNoiseScaler: 0.01
+    remove: 0
+  - texture: {fileID: 2800000, guid: 79d5431cd68194d08a40d2bbe4ebcef9, type: 3}
+    minHeight: 0.07
+    maxHeight: 0.2
+    Slope: {x: 0, y: 90}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.1, y: 0.1}
+    splatNoiseScaler: 0.05
+    remove: 0
+  - texture: {fileID: 2800000, guid: fa749c6a04ad34af5af35082813d7df8, type: 3}
+    minHeight: 0.2
+    maxHeight: 0.4
+    Slope: {x: 0, y: 360}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.1, y: 0.1}
+    splatNoiseScaler: 0.1
+    remove: 0
+  - texture: {fileID: 2800000, guid: b3b656cca21f546f699d08c8ee074b8d, type: 3}
+    minHeight: 0.05
+    maxHeight: 0.07
+    Slope: {x: 30, y: 60}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.01, y: 0.01}
+    splatNoiseScaler: 0.1
     remove: 0
   voronoiFallOff: 6.73
   voronoiDropOff: 6.98
