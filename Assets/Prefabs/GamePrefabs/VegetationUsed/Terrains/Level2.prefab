@@ -1,0 +1,342 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &663395482600914404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 663395482600914403}
+  - component: {fileID: 663395482600914402}
+  - component: {fileID: 663395482600914405}
+  - component: {fileID: 663395482600914400}
+  m_Layer: 9
+  m_Name: Terrain
+  m_TagString: Terrain
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &663395482600914403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395482600914404}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 663395483051686887}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!218 &663395482600914402
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395482600914404}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: d0a5549e89cfd4b429ab44327256491d, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 5000
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+--- !u!154 &663395482600914405
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395482600914404}
+  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 15600000, guid: d0a5549e89cfd4b429ab44327256491d, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!114 &663395482600914400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395482600914404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc82c0d57779c014d8c05150952787c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomHeightRange: {x: 0, y: 0.1}
+  heightMapImage: {fileID: 2800000, guid: bbc72afe373b6ec4ea3687522c4a4485, type: 3}
+  heightMapScale: {x: 1, y: 1, z: 1}
+  resetTerrain: 1
+  perlinXScale: 0.01
+  perlinYScale: 0.01
+  perlinOffsetX: 0
+  perlinOffsetY: 0
+  perlinOctaves: 3
+  perlinPersistance: 8
+  perlinHeightScale: 0.09
+  perlinParameters:
+  - perlinXScale: 0.01
+    perlinYScale: 0.01
+    perlinOffsetX: 0
+    perlinOffsetY: 0
+    perlinOctaves: 3
+    perlinPersistance: 8
+    perlinHeightScale: 0.09
+    remove: 0
+  splatHeights:
+  - texture: {fileID: 2800000, guid: 8b428e4e6cc624a4c9235f69da8e3edb, type: 3}
+    minHeight: 0
+    maxHeight: 0.2
+    Slope: {x: 0, y: 35}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.001, y: 0.001}
+    splatNoiseScaler: 0.5
+    remove: 0
+  - texture: {fileID: 2800000, guid: 1e37030fd131446698e39f9f5a0159e6, type: 3}
+    minHeight: 0
+    maxHeight: 0.2
+    Slope: {x: 20, y: 90}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.01, y: 0.01}
+    splatNoiseScaler: 0.1
+    remove: 0
+  - texture: {fileID: 2800000, guid: 59aa96a28c32043de836d0d09ff9570e, type: 3}
+    minHeight: 0.15
+    maxHeight: 0.6
+    Slope: {x: 50, y: 90}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.01, y: 0.01}
+    splatNoiseScaler: 0.1
+    remove: 0
+  - texture: {fileID: 2800000, guid: dd49ed99f55924d13bacefd240626bc5, type: 3}
+    minHeight: 0.15
+    maxHeight: 0.15
+    Slope: {x: 0, y: 60}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.001, y: 0.001}
+    splatNoiseScaler: 0.01
+    remove: 0
+  - texture: {fileID: 2800000, guid: cbc6c8225a70e4475b3b2f20c8a7ec98, type: 3}
+    minHeight: 0.5
+    maxHeight: 0.5
+    Slope: {x: 0, y: 90}
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
+    offset: 0.01
+    NoiseScale: {x: 0.02, y: 0.02}
+    splatNoiseScaler: 0.4
+    remove: 0
+  vegetations:
+  - mesh: {fileID: 100000, guid: 02e48269f8d554fbca75435761452392, type: 3}
+    minHeight: 0.1
+    maxHeight: 0.3
+    minSlope: 0
+    maxSlope: 90
+    minScale: 0.5
+    maxScale: 1
+    colour1: {r: 1, g: 1, b: 1, a: 1}
+    colour2: {r: 1, g: 1, b: 1, a: 1}
+    lightColour: {r: 1, g: 1, b: 1, a: 1}
+    minRotation: 0
+    maxRotation: 360
+    density: 0.5
+    remove: 0
+  maximumTree: 5000
+  treeSpacing: 14
+  details:
+  - prototype: {fileID: 0}
+    prototypeTexture: {fileID: 0}
+    minHeight: 0.1
+    maxHeight: 0.2
+    minSlope: 0
+    maxSlope: 90
+    dryColor: {r: 1, g: 1, b: 1, a: 1}
+    healthyColor: {r: 1, g: 1, b: 1, a: 1}
+    heightRange: {x: 1, y: 2}
+    widthRange: {x: 1, y: 1}
+    noiseSpread: 0.5
+    overlap: 0.01
+    feather: 0.05
+    density: 0.5
+    remove: 0
+  - prototype: {fileID: 0}
+    prototypeTexture: {fileID: 0}
+    minHeight: 0.1
+    maxHeight: 0.2
+    minSlope: 0
+    maxSlope: 90
+    dryColor: {r: 1, g: 1, b: 1, a: 1}
+    healthyColor: {r: 1, g: 1, b: 1, a: 1}
+    heightRange: {x: 1, y: 2}
+    widthRange: {x: 1, y: 1}
+    noiseSpread: 0.5
+    overlap: 0.01
+    feather: 0.05
+    density: 0.5
+    remove: 0
+  maximumDetails: 5000
+  detailsSpacing: 12
+  voronoiFallOff: 0.57
+  voronoiDropOff: 0.81
+  voronoiMinHeight: 0
+  voronoiMaxHeight: 0.262
+  voronoiPeaks: 5
+  voronoiType: 1
+  MPDheightMin: 0
+  MPDheightMax: 2
+  MPDheightDampenerPower: 5
+  MPDroughness: 2
+  waterHeight: 0.031
+  waterGO: {fileID: 100000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
+  shorelineMaterial: {fileID: 2100000, guid: 87d993f90387c98469859350593aee35, type: 2}
+  foamSize: 20
+  erosionType: 1
+  erosionStrength: 0.245
+  erosionAmount: 1
+  springsPerRiver: 5
+  solubility: 0.01
+  droplets: 346
+  erosionSmoothAmount: 5
+  smoothAmount: 5
+  terrain: {fileID: 663395482600914402}
+  terrainData: {fileID: 15600000, guid: d0a5549e89cfd4b429ab44327256491d, type: 2}
+  terrainLayer: 9
+--- !u!1 &663395483051686886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 663395483051686887}
+  - component: {fileID: 663395483051686882}
+  - component: {fileID: 663395483051686885}
+  - component: {fileID: 663395483051686884}
+  m_Layer: 4
+  m_Name: water
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &663395483051686887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395483051686886}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 500, y: 18.6, z: 500}
+  m_LocalScale: {x: 1000, y: 1, z: 1000}
+  m_Children: []
+  m_Father: {fileID: 663395482600914403}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &663395483051686882
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395483051686886}
+  m_Mesh: {fileID: 4300006, guid: ba6a41dc489914734857bb5924eb70ad, type: 3}
+--- !u!23 &663395483051686885
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395483051686886}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7350b65a6431f604a8496c39db1ac9c5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &663395483051686884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663395483051686886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d3ef1a5bbfb4e0a910fbbe5830b1f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterMode: 2
+  disablePixelLights: 1
+  textureSize: 256
+  clipPlaneOffset: 0.07
+  reflectLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  refractLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295

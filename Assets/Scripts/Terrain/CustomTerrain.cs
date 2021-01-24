@@ -53,7 +53,7 @@ public class CustomTerrain : MonoBehaviour
         public Vector2 tileOffset = new Vector2(0, 0);
         public Vector2 tileSize = new Vector2(50, 50);
         public float offset = 0.01f;
-        public Vector2 NoiseScale=new Vector2(0.01f, 0.01f);
+        public Vector2 NoiseScale = new Vector2(0.01f, 0.01f);
         public float splatNoiseScaler = 0.1f;
         public bool remove = false;
 
@@ -98,12 +98,17 @@ public class CustomTerrain : MonoBehaviour
     [System.Serializable]
     public class Details
     {
-        public GameObject prototype=null;
+        public GameObject prototype = null;
         public Texture2D prototypeTexture = null;
         public float minHeight = 0.1f;
         public float maxHeight = 0.2f;
         public float minSlope = 0;
         public float maxSlope = 90;
+        public Color dryColor = Color.white;
+        public Color healthyColor = Color.white;
+        public Vector2 heightRange = new Vector2(1, 2);
+        public Vector2 widthRange = new Vector2(1, 1);
+        public float noiseSpread = 0.5f;
         public float overlap = 0.01f;
         public float feather = 0.05f;
         public float density = 0.5f;
@@ -114,24 +119,43 @@ public class CustomTerrain : MonoBehaviour
     {
         new Details()
     };
-    public int maximumDetails=5000;
-    public int detailsSpacing=5;
+    public int maximumDetails = 5000;
+    public int detailsSpacing = 5;
 
 
     //VORONOI
-    public float voronoiFallOff=0.2f;
-    public float voronoiDropOff=0.6f;
-    public float voronoiMinHeight=0.1f;
-    public float voronoiMaxHeight=0.5f;
-    public int voronoiPeaks=5;
-    public enum VoronoiType { Linear=0,Power=1,Combined=2,Sin=3,SinPow=4,CosPow=5 }
-    public VoronoiType voronoiType=VoronoiType.Linear;
+    public float voronoiFallOff = 0.2f;
+    public float voronoiDropOff = 0.6f;
+    public float voronoiMinHeight = 0.1f;
+    public float voronoiMaxHeight = 0.5f;
+    public int voronoiPeaks = 5;
+    public enum VoronoiType { Linear = 0, Power = 1, Combined = 2, Sin = 3, SinPow = 4, CosPow = 5 }
+    public VoronoiType voronoiType = VoronoiType.Linear;
 
     //Midpoint Displacement
-    public float MPDheightMin=-2;
-    public float MPDheightMax=2f;
-    public float MPDheightDampenerPower=2.0f;
-    public float MPDroughness=2.0f;
+    public float MPDheightMin = -2;
+    public float MPDheightMax = 2f;
+    public float MPDheightDampenerPower = 2.0f;
+    public float MPDroughness = 2.0f;
+
+
+    //Water
+    public float waterHeight = 0.5f;
+    public GameObject waterGO = null;
+    public Material shorelineMaterial = null;
+    public float foamSize = 20.0f;
+
+    //Erosion
+    public enum ErosionType { Rain = 0, Thermal = 1, Tidal = 2, River = 3, Wind = 4 }
+    public ErosionType erosionType = ErosionType.Rain;
+    public float erosionStrength = 0.1f;
+    public float erosionAmount = 0.01f;
+    public int springsPerRiver = 5;
+    public float solubility = 0.01f;
+    public int droplets = 10;
+    public int erosionSmoothAmount = 5;
+
+
 
     //Smooth
     public int smoothAmount = 2;
@@ -168,11 +192,236 @@ public class CustomTerrain : MonoBehaviour
                     {
                         neighbours.Add(nPos);
                     }
-                        
+
                 }
             }
         }
         return neighbours;
+    }
+
+    void Rain()
+    {
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        for(int i=0;i<droplets;i++)
+        {
+            heightMap[UnityEngine.Random.Range(0, terrainData.heightmapWidth),
+                      UnityEngine.Random.Range(0, terrainData.heightmapHeight)]
+                      -= erosionStrength;
+        }
+        terrainData.SetHeights(0, 0, heightMap);
+    }
+    void Tidal()
+    {
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        for (int y = 0; y < terrainData.heightmapHeight; y++)
+        {
+            for (int x = 0; x < terrainData.heightmapWidth; x++)
+            {
+                Vector2 thisLocation = new Vector2(x, y);
+                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapWidth, terrainData.heightmapHeight);
+                foreach (Vector2 n in neightbours)
+                {
+                    if (heightMap[x,y]<waterHeight&&heightMap[(int)n.x, (int)n.y]>waterHeight)
+                    {
+                        heightMap[x, y] =waterHeight;
+                        heightMap[(int)n.x, (int)n.y] =waterHeight;
+                    }
+                }
+            }
+
+        }
+        terrainData.SetHeights(0, 0, heightMap);
+    }
+    void Thermal()
+    {
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        for (int y = 0; y < terrainData.heightmapHeight; y++)
+        {
+            for (int x = 0; x < terrainData.heightmapWidth; x++)
+            {
+                Vector2 thisLocation = new Vector2(x, y);
+                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapWidth, terrainData.heightmapHeight);
+                foreach (Vector2 n in neightbours)
+                {
+                    if (heightMap[x, y] > heightMap[(int)n.x, (int)n.y] + erosionStrength)
+                    {
+                        float currentHeight = heightMap[x, y];
+                        heightMap[x, y] -= currentHeight * erosionAmount;
+                        heightMap[(int)n.x, (int)n.y] += currentHeight * 0.01f;
+                    }
+                }
+            }
+
+        }
+        terrainData.SetHeights(0, 0, heightMap);
+    }
+    void River()
+    {
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        float[,] erosionMap = new float[terrainData.heightmapWidth, terrainData.heightmapHeight];
+        for (int i = 0; i < droplets; i++)
+        {
+            Vector2 dropletPosition = new Vector2(UnityEngine.Random.Range(0, terrainData.heightmapWidth),
+                                                 UnityEngine.Random.Range(0, terrainData.heightmapHeight));
+            erosionMap[(int)dropletPosition.x, (int)dropletPosition.y] = erosionStrength;
+            for(int j=0;j<springsPerRiver;j++)
+            {
+                erosionMap = RunRiver(dropletPosition, heightMap, erosionMap, terrainData.heightmapWidth, terrainData.heightmapHeight);
+            }
+        }
+        for(int y=0;y<terrainData.heightmapHeight;y++)
+        {
+            for(int x=0;x<terrainData.heightmapWidth;x++)
+            {
+                if(erosionMap[x,y]>0)
+                {
+                    heightMap[x, y] -= erosionMap[x, y];
+                }
+            }
+        }
+        terrainData.SetHeights(0, 0, heightMap);
+    }
+
+    float [,] RunRiver(Vector3 dropletPosition,float[,]heightMap,float[,]erosionMap,int width,int height)
+    {
+        while(erosionMap[(int)dropletPosition.x,(int)dropletPosition.y]>0)
+        {
+            List<Vector2> neightbours = GenerateNeighbours(dropletPosition, width, height);
+            neightbours.Shuffle();
+            bool foundLower = false;
+            foreach(Vector2 n in neightbours)
+            {
+                if (heightMap[(int)n.x,(int)n.y]<heightMap[(int)dropletPosition.x, (int)dropletPosition.y])
+                {
+                    erosionMap[(int)n.x, (int)n.y] = erosionMap[(int)dropletPosition.x, (int)dropletPosition.y];
+                    dropletPosition = n;
+                    foundLower = true;
+                    break;
+                }
+            }
+            if(!foundLower)
+            {
+                erosionMap[(int)dropletPosition.x, (int)dropletPosition.y] -= solubility;
+            }
+
+        }
+        return erosionMap;
+    }
+    void Wind()
+    {
+
+    }
+
+    public void Erode()
+    {
+        if (erosionType == ErosionType.Rain)
+        {
+            Rain();
+        }
+        else if (erosionType == ErosionType.Tidal)
+        {
+            Tidal();
+        }
+        else if (erosionType == ErosionType.Thermal)
+        {
+            Thermal();
+        }
+        else if (erosionType == ErosionType.River)
+        {
+            River();
+        }
+        else if (erosionType == ErosionType.Wind)
+        {
+            Wind();
+        }
+        smoothAmount = erosionSmoothAmount;
+        Smooth();
+    }
+
+    public void DrawShoreline()
+    {
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        int quadCount = 0;
+        for(int y=0;y<terrainData.heightmapHeight;y++)
+        {
+            for(int x=0;x<terrainData.heightmapWidth;x++)
+            {
+                //find spot on the shore
+                Vector2 thisLocation = new Vector2(x, y);
+                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapWidth, terrainData.heightmapHeight);
+                foreach (Vector2 n in neightbours)
+                {
+                    if(heightMap[x,y]<waterHeight&&heightMap[(int)n.x,(int)n.y]>waterHeight)
+                    {
+                            quadCount++;
+                            GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                            go.transform.localScale *= foamSize;
+                            go.transform.position = this.transform.position +
+                                                new Vector3(y / (float)terrainData.heightmapHeight
+                                                * terrainData.size.x, waterHeight * terrainData.size.y,
+                                                x / (float)terrainData.heightmapWidth * terrainData.size.x);
+                            go.transform.LookAt(new Vector3(n.y/(float)terrainData.heightmapHeight
+                                                            * terrainData.size.z,waterHeight*terrainData.size.y,n.x/(float)terrainData.heightmapWidth
+                                                            *terrainData.size.x));
+                            go.transform.Rotate(90, 0, 0);
+                            go.tag = "Shore";
+                       
+                       
+                    }
+                }
+            }
+        }
+        GameObject[] shoreQuads = GameObject.FindGameObjectsWithTag("Shore");
+        MeshFilter[] meshFilters = new MeshFilter[shoreQuads.Length];
+        for(int m=0;m<shoreQuads.Length;m++)
+        {
+            meshFilters[m] = shoreQuads[m].GetComponent<MeshFilter>();
+        }
+        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+        int i = 0;
+        while(i<meshFilters.Length)
+        {
+            combine[i].mesh = meshFilters[i].sharedMesh;
+            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            meshFilters[i].gameObject.active = false;
+            i++;
+        }
+
+        GameObject currentShoreLine = GameObject.Find("ShoreLine");
+        if(currentShoreLine)
+        {
+            DestroyImmediate(currentShoreLine);
+        }
+        GameObject shoreLine = new GameObject();
+        shoreLine.name = "ShoreLine";
+        shoreLine.AddComponent<WaveAnimation>();
+        shoreLine.transform.position = this.transform.position;
+        shoreLine.transform.rotation = this.transform.rotation;
+        shoreLine.transform.parent = this.transform;
+        MeshFilter thisMF = shoreLine.AddComponent<MeshFilter>();
+        thisMF.mesh = new Mesh();
+        shoreLine.GetComponent<MeshFilter>().sharedMesh.CombineMeshes(combine);
+        MeshRenderer r = shoreLine.AddComponent<MeshRenderer>();
+        r.sharedMaterial = shorelineMaterial;
+
+        for(int sq=0; sq<shoreQuads.Length;sq++)
+        {
+            DestroyImmediate(shoreQuads[sq]);
+        }
+
+    }
+
+    public void AddWater()
+    {
+        GameObject water = GameObject.Find("water");
+        if(!water)
+        {
+            water = Instantiate(waterGO, this.transform.position, this.transform.rotation);
+            water.transform.parent = this.transform;
+            water.name = "water";
+        }
+        water.transform.position = this.transform.position + new Vector3(terrainData.size.x / 2, waterHeight * terrainData.size.y, terrainData.size.z / 2);
+        water.transform.localScale = new Vector3(terrainData.size.x, 1, terrainData.size.z);
     }
 
     public void AddDetails()
@@ -185,8 +434,15 @@ public class CustomTerrain : MonoBehaviour
             newDetailPrototypes[dindex] = new DetailPrototype();
             newDetailPrototypes[dindex].prototype = d.prototype;
             newDetailPrototypes[dindex].prototypeTexture = d.prototypeTexture;
-            newDetailPrototypes[dindex].healthyColor = Color.white;
-            if(newDetailPrototypes[dindex].prototype)
+            newDetailPrototypes[dindex].healthyColor = d.healthyColor;
+            newDetailPrototypes[dindex].dryColor = d.dryColor;
+            newDetailPrototypes[dindex].minHeight = d.heightRange.x;
+            newDetailPrototypes[dindex].maxHeight = d.heightRange.y;
+            newDetailPrototypes[dindex].minWidth = d.widthRange.x;
+            newDetailPrototypes[dindex].maxWidth = d.widthRange.y;
+            newDetailPrototypes[dindex].noiseSpread = d.noiseSpread;
+
+            if (newDetailPrototypes[dindex].prototype)
             {
                 newDetailPrototypes[dindex].usePrototypeMesh = true;
                 newDetailPrototypes[dindex].renderMode = DetailRenderMode.VertexLit;
@@ -199,6 +455,7 @@ public class CustomTerrain : MonoBehaviour
             dindex++;
         }
         terrainData.detailPrototypes = newDetailPrototypes;
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
 
         for(int i=0;i<terrainData.detailPrototypes.Length;i++)
         {
@@ -211,7 +468,17 @@ public class CustomTerrain : MonoBehaviour
                     {
                         continue;
                     }
-                    detailsMap[y, x] = 1;
+                    int xHM = (int)(x / (float)terrainData.detailWidth * terrainData.heightmapWidth);
+                    int yHM = (int)(y / (float)terrainData.detailHeight * terrainData.heightmapHeight);
+                    float thisNoise = Utils.Map(Mathf.PerlinNoise(x * details[i].feather, y * details[i].feather), 0, 1, 0.5f, 1);
+                    float thisHeightStart = details[i].minHeight * thisNoise - details[i].overlap * thisNoise;
+                    float nextHeightStart = details[i].maxHeight * thisNoise + details[i].overlap * thisNoise;
+                    float thisHeight = heightMap[yHM, xHM];
+                    float steepness = terrainData.GetSteepness(xHM / (float)terrainData.size.x, yHM / (float)terrainData.size.z);
+                    if((thisHeight>=thisHeightStart&&thisHeight<=nextHeightStart)&&(steepness>=details[i].minSlope&&steepness<=details[i].maxSlope))
+                    {
+                        detailsMap[y, x] = 1;
+                    }
                 }
             }
             terrainData.SetDetailLayer(0, 0, i, detailsMap);
