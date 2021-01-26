@@ -14,8 +14,8 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.2952915, g: 0.31132078, b: 0.29516736, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
@@ -910,6 +910,22 @@ PrefabInstance:
       propertyPath: field of view
       value: 43.839878
       objectReference: {fileID: 0}
+    - target: {fileID: 1705411392874423024, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705411392874423024, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705411392874423024, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.30980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705411392874423024, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.29411766
+      objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 141.2
@@ -924,19 +940,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.009861857
+      value: -0.009861645
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.020277824
+      value: -0.021298347
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00020002785
+      value: -0.00021009461
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9997457
+      value: 0.9997245
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_RootOrder
@@ -981,11 +997,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514112824008, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000021488966
+      value: 0.0000000021488955
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514112824008, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 9.0424584e-11
+      value: -9.0424536e-11
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514112824008, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -997,19 +1013,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514366769512, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.044270318
+      value: -0.04426624
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514366769512, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.042196397
+      value: -0.04431897
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514366769512, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0018715548
+      value: -0.0019656979
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514366769512, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9981263
+      value: 0.9980343
       objectReference: {fileID: 0}
     - target: {fileID: 5464895514366769512, guid: f254358f9d797464d870d7e4b6d9abf4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1499,6 +1515,7 @@ MonoBehaviour:
   solubility: 0.01
   droplets: 346
   erosionSmoothAmount: 5
+  WindDir: 0
   smoothAmount: 5
   terrain: {fileID: 663395483147664173}
   terrainData: {fileID: 15600000, guid: d0a5549e89cfd4b429ab44327256491d, type: 2}

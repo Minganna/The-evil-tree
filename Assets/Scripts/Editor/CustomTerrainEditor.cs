@@ -41,6 +41,7 @@ public class CustomTerrainEditor : Editor
     SerializedProperty solubility;
     SerializedProperty droplets;
     SerializedProperty erosionSmoothAmount;
+    SerializedProperty WindDir;
 
 
     GUITableState vegetationTable;
@@ -126,6 +127,7 @@ public class CustomTerrainEditor : Editor
         droplets= serializedObject.FindProperty("droplets");
         erosionSmoothAmount= serializedObject.FindProperty("erosionSmoothAmount");
         erosionAmount= serializedObject.FindProperty("erosionAmount");
+        WindDir = serializedObject.FindProperty("WindDir");
 
 
 
@@ -352,7 +354,9 @@ public class CustomTerrainEditor : Editor
             EditorGUILayout.IntSlider(droplets, 1, 500, new GUIContent("Droplets"));
             EditorGUILayout.Slider(solubility, 0.001f, 1, new GUIContent("Solubility"));
             EditorGUILayout.IntSlider(springsPerRiver, 0, 20, new GUIContent("Spring Per River"));
+            EditorGUILayout.Slider(WindDir, 0, 360, new GUIContent("Win Direction"));
             EditorGUILayout.IntSlider(erosionSmoothAmount, 0, 10, new GUIContent("Smooth Amout"));
+            
 
             if (GUILayout.Button("Erode"))
             {
@@ -391,10 +395,10 @@ public class CustomTerrainEditor : Editor
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("Refresh", GUILayout.Width(hmtSize)))
             {
-                float[,] heightMap = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
-                for(int y=0;y<terrain.terrainData.heightmapHeight; y++)
+                float[,] heightMap = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution);
+                for(int y=0;y<terrain.terrainData.heightmapResolution; y++)
                 {
-                    for(int x=0;x<terrain.terrainData.heightmapWidth; x++)
+                    for(int x=0;x<terrain.terrainData.heightmapResolution; x++)
                     {
                         hmTexture.SetPixel(x,y,new Color(heightMap[x,y],heightMap[x,y],heightMap[x,y],1));
                     }

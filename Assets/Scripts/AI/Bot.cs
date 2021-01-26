@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public enum TypeOfCreature
 {
-   brain, bubble, poop 
+   brain, bubble, pungolo
 }
 public class Bot : MonoBehaviour
 {
@@ -25,9 +25,9 @@ public class Bot : MonoBehaviour
 
     internal void FindTargetTochase()
     {
-        if (tc == TypeOfCreature.poop)
+        if (tc == TypeOfCreature.pungolo)
         {
-            target = cm.GetPoopRandom();
+            target = cm.GetPungoloRandom();
             
 
         }
@@ -68,7 +68,7 @@ public class Bot : MonoBehaviour
     public void Evade()
     {
         Vector3 targetDir = target.transform.position - this.transform.position;
-        float lookAhed = targetDir.magnitude / (agent.speed + target.GetComponent<Drive>().currentSpeed);
+        float lookAhed = targetDir.magnitude / (agent.speed + target.GetComponent<PlayerController>().moveSpeed);
         Flee(target.transform.position + target.transform.forward * lookAhed);
     }
 

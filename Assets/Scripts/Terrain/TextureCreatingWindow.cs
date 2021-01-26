@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.IO;
 
+#if UNITY_EDITOR
 public class TextureCreatingWindow : EditorWindow
 {
 
@@ -162,3 +163,4 @@ public class TextureCreatingWindow : EditorWindow
     }
 
 }
+#endif

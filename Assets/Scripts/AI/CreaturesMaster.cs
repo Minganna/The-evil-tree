@@ -26,9 +26,9 @@ public class CreaturesMaster : MonoBehaviour
             {
                 creature.target = GetBrainRandom();
             }
-            if (creature.tc == TypeOfCreature.poop)
+            if (creature.tc == TypeOfCreature.pungolo)
             {
-                creature.target = GetPoopRandom();
+                creature.target = GetPungoloRandom();
             }
         }
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -47,26 +47,29 @@ public class CreaturesMaster : MonoBehaviour
       
         return targets[brainrandom];
     }
-    public GameObject GetPoopRandom()
+    public GameObject GetPungoloRandom()
     {
         return targets[pooprandom];
     }
     void Update()
     {
+       
         foreach(Bot creature in creatures)
         {
-
+            float distancefromp = Vector3.Distance(creature.transform.position, Player.transform.position);
+            Debug.Log("distance from p" + distancefromp);
             if (creature.target)
             {
                 if (!creature.runfromPlayer)
                 {
-                    if (Vector3.Distance(creature.transform.position, Player.transform.position) > 1)
+                    if (Vector3.Distance(creature.transform.position, Player.transform.position) > 10)
                     {
                         creature.FindTargetTochase();
                         creature.Seek(creature.target.transform.position);
                     }
-                    else if (Input.GetKeyDown(KeyCode.E))
+                    else if (FindObjectOfType<PlayerController>().ScareMonster)
                     {
+                        Debug.Log("Arrived Here");
                         runfromPlayer = true;
                         scaredBot = creature;
                     }

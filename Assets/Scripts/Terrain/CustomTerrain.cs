@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
+#if UNITY_EDITOR
 [ExecuteInEditMode]
 public class CustomTerrain : MonoBehaviour
 {
@@ -146,7 +146,7 @@ public class CustomTerrain : MonoBehaviour
     public float foamSize = 20.0f;
 
     //Erosion
-    public enum ErosionType { Rain = 0, Thermal = 1, Tidal = 2, River = 3, Wind = 4 }
+    public enum ErosionType { Rain = 0, Thermal = 1, Tidal = 2, River = 3, Wind = 4,Canyon=5 }
     public ErosionType erosionType = ErosionType.Rain;
     public float erosionStrength = 0.1f;
     public float erosionAmount = 0.01f;
@@ -154,6 +154,7 @@ public class CustomTerrain : MonoBehaviour
     public float solubility = 0.01f;
     public int droplets = 10;
     public int erosionSmoothAmount = 5;
+    public float WindDir = 0;
 
 
 
@@ -169,11 +170,11 @@ public class CustomTerrain : MonoBehaviour
     {
         if (!resetTerrain)
         {
-            return terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+            return terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
         }
         else
         {
-            return new float[terrainData.heightmapWidth, terrainData.heightmapHeight];
+            return new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
         }
     }
 
@@ -201,24 +202,24 @@ public class CustomTerrain : MonoBehaviour
 
     void Rain()
     {
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
         for(int i=0;i<droplets;i++)
         {
-            heightMap[UnityEngine.Random.Range(0, terrainData.heightmapWidth),
-                      UnityEngine.Random.Range(0, terrainData.heightmapHeight)]
+            heightMap[UnityEngine.Random.Range(0, terrainData.heightmapResolution),
+                      UnityEngine.Random.Range(0, terrainData.heightmapResolution)]
                       -= erosionStrength;
         }
         terrainData.SetHeights(0, 0, heightMap);
     }
     void Tidal()
     {
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
-        for (int y = 0; y < terrainData.heightmapHeight; y++)
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        for (int y = 0; y < terrainData.heightmapResolution; y++)
         {
-            for (int x = 0; x < terrainData.heightmapWidth; x++)
+            for (int x = 0; x < terrainData.heightmapResolution; x++)
             {
                 Vector2 thisLocation = new Vector2(x, y);
-                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapWidth, terrainData.heightmapHeight);
+                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapResolution, terrainData.heightmapResolution);
                 foreach (Vector2 n in neightbours)
                 {
                     if (heightMap[x,y]<waterHeight&&heightMap[(int)n.x, (int)n.y]>waterHeight)
@@ -234,13 +235,13 @@ public class CustomTerrain : MonoBehaviour
     }
     void Thermal()
     {
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
-        for (int y = 0; y < terrainData.heightmapHeight; y++)
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        for (int y = 0; y < terrainData.heightmapResolution; y++)
         {
-            for (int x = 0; x < terrainData.heightmapWidth; x++)
+            for (int x = 0; x < terrainData.heightmapResolution; x++)
             {
                 Vector2 thisLocation = new Vector2(x, y);
-                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapWidth, terrainData.heightmapHeight);
+                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapResolution, terrainData.heightmapResolution);
                 foreach (Vector2 n in neightbours)
                 {
                     if (heightMap[x, y] > heightMap[(int)n.x, (int)n.y] + erosionStrength)
@@ -257,21 +258,21 @@ public class CustomTerrain : MonoBehaviour
     }
     void River()
     {
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
-        float[,] erosionMap = new float[terrainData.heightmapWidth, terrainData.heightmapHeight];
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        float[,] erosionMap = new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
         for (int i = 0; i < droplets; i++)
         {
-            Vector2 dropletPosition = new Vector2(UnityEngine.Random.Range(0, terrainData.heightmapWidth),
-                                                 UnityEngine.Random.Range(0, terrainData.heightmapHeight));
+            Vector2 dropletPosition = new Vector2(UnityEngine.Random.Range(0, terrainData.heightmapResolution),
+                                                 UnityEngine.Random.Range(0, terrainData.heightmapResolution));
             erosionMap[(int)dropletPosition.x, (int)dropletPosition.y] = erosionStrength;
             for(int j=0;j<springsPerRiver;j++)
             {
-                erosionMap = RunRiver(dropletPosition, heightMap, erosionMap, terrainData.heightmapWidth, terrainData.heightmapHeight);
+                erosionMap = RunRiver(dropletPosition, heightMap, erosionMap, terrainData.heightmapResolution, terrainData.heightmapResolution);
             }
         }
-        for(int y=0;y<terrainData.heightmapHeight;y++)
+        for(int y=0;y<terrainData.heightmapResolution;y++)
         {
-            for(int x=0;x<terrainData.heightmapWidth;x++)
+            for(int x=0;x<terrainData.heightmapResolution;x++)
             {
                 if(erosionMap[x,y]>0)
                 {
@@ -309,7 +310,72 @@ public class CustomTerrain : MonoBehaviour
     }
     void Wind()
     {
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        int width = terrainData.heightmapResolution;
+        int height = terrainData.heightmapResolution;
 
+        
+        float sinAngle = -Mathf.Sin(Mathf.Deg2Rad * WindDir);
+        float cosAngle = Mathf.Cos(Mathf.Deg2Rad * WindDir);
+
+        for (int y = -(height-1)*2; y <= height*2; y+=10)
+        {
+            for (int x = -(width-1)*2; x <=width*2 ; x+=1)
+            {
+                float thisNoise = (float)Mathf.PerlinNoise(x * 0.06f, y * 0.06f) * 20 * erosionStrength;
+                int nx = (int)x;
+                int digy = (int)y + (int)thisNoise;
+                int ny = (int)y + 5+(int)thisNoise;
+
+                Vector2 digCoords = new Vector2(x * cosAngle - digy * sinAngle, digy * cosAngle + x * sinAngle);
+                Vector2 pileCoords = new Vector2(nx * cosAngle - ny * sinAngle, ny * cosAngle + nx * sinAngle);
+                if (!(pileCoords.x < 0 || pileCoords.x > (width - 1) || pileCoords.y < 0 ||
+                      pileCoords.y > (height - 1) ||
+                     (int)digCoords.x < 0 || (int)digCoords.x > (width - 1) ||
+                     (int)digCoords.y < 0 || (int)digCoords.y > (height - 1)))
+                {
+                    heightMap[(int)digCoords.x, (int)digCoords.y] -= 0.001f;
+                    heightMap[(int)pileCoords.x, (int)pileCoords.y] += 0.001f;
+                }
+            }
+        }
+        terrainData.SetHeights(0, 0, heightMap);
+    }
+    float[,] tempHeightMap;
+    public void DigCanyon()
+    {
+        float digDepth = erosionStrength;
+        float bankSlope = erosionAmount;
+        float maxDepth = 0;
+        tempHeightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution,
+                                                terrainData.heightmapResolution);
+        int cx = 1;
+        int cy = UnityEngine.Random.Range(10, terrainData.heightmapResolution - 10);
+        while (cy >= 0 && cy < terrainData.heightmapResolution && cx > 0
+               && cx < terrainData.heightmapResolution)
+        {
+            CanyonCrawler(cx, cy, tempHeightMap[cx, cy] - digDepth, bankSlope, maxDepth);
+            cx = cx + UnityEngine.Random.Range(-1, 4);
+            cy = cy + UnityEngine.Random.Range(-2, 3);
+        }
+        terrainData.SetHeights(0, 0, tempHeightMap);
+    }
+
+    void CanyonCrawler(int x, int y, float height, float slope, float maxDepth)
+    {
+        if (x < 0 || x >= terrainData.heightmapResolution) return; //off x range of map
+        if (y < 0 || y >= terrainData.heightmapResolution) return; //off y range of map
+        if (height <= maxDepth) return; //if hit lowest level
+        if (tempHeightMap[x, y] <= height) return; //if run into lower elevation
+
+        tempHeightMap[x, y] = height;
+
+        CanyonCrawler(x + 1, y, height + UnityEngine.Random.Range(slope, slope + 0.01f), slope, maxDepth);
+        CanyonCrawler(x - 1, y, height + UnityEngine.Random.Range(slope, slope + 0.01f), slope, maxDepth);
+        CanyonCrawler(x + 1, y + 1, height + UnityEngine.Random.Range(slope, slope + 0.01f), slope, maxDepth);
+        CanyonCrawler(x - 1, y + 1, height + UnityEngine.Random.Range(slope, slope + 0.01f), slope, maxDepth);
+        CanyonCrawler(x, y - 1, height + UnityEngine.Random.Range(slope, slope + 0.01f), slope, maxDepth);
+        CanyonCrawler(x, y + 1, height + UnityEngine.Random.Range(slope, slope + 0.01f), slope, maxDepth);
     }
 
     public void Erode()
@@ -334,21 +400,26 @@ public class CustomTerrain : MonoBehaviour
         {
             Wind();
         }
+        else if (erosionType == ErosionType.Canyon)
+        {
+            DigCanyon();
+        }
+           
         smoothAmount = erosionSmoothAmount;
         Smooth();
     }
 
     public void DrawShoreline()
     {
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
         int quadCount = 0;
-        for(int y=0;y<terrainData.heightmapHeight;y++)
+        for(int y=0;y<terrainData.heightmapResolution;y++)
         {
-            for(int x=0;x<terrainData.heightmapWidth;x++)
+            for(int x=0;x<terrainData.heightmapResolution;x++)
             {
                 //find spot on the shore
                 Vector2 thisLocation = new Vector2(x, y);
-                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapWidth, terrainData.heightmapHeight);
+                List<Vector2> neightbours = GenerateNeighbours(thisLocation, terrainData.heightmapResolution, terrainData.heightmapResolution);
                 foreach (Vector2 n in neightbours)
                 {
                     if(heightMap[x,y]<waterHeight&&heightMap[(int)n.x,(int)n.y]>waterHeight)
@@ -357,11 +428,11 @@ public class CustomTerrain : MonoBehaviour
                             GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
                             go.transform.localScale *= foamSize;
                             go.transform.position = this.transform.position +
-                                                new Vector3(y / (float)terrainData.heightmapHeight
+                                                new Vector3(y / (float)terrainData.heightmapResolution
                                                 * terrainData.size.x, waterHeight * terrainData.size.y,
-                                                x / (float)terrainData.heightmapWidth * terrainData.size.x);
-                            go.transform.LookAt(new Vector3(n.y/(float)terrainData.heightmapHeight
-                                                            * terrainData.size.z,waterHeight*terrainData.size.y,n.x/(float)terrainData.heightmapWidth
+                                                x / (float)terrainData.heightmapResolution * terrainData.size.x);
+                            go.transform.LookAt(new Vector3(n.y/(float)terrainData.heightmapResolution
+                                                            * terrainData.size.z,waterHeight*terrainData.size.y,n.x/(float)terrainData.heightmapResolution
                                                             *terrainData.size.x));
                             go.transform.Rotate(90, 0, 0);
                             go.tag = "Shore";
@@ -455,7 +526,7 @@ public class CustomTerrain : MonoBehaviour
             dindex++;
         }
         terrainData.detailPrototypes = newDetailPrototypes;
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
 
         for(int i=0;i<terrainData.detailPrototypes.Length;i++)
         {
@@ -468,8 +539,8 @@ public class CustomTerrain : MonoBehaviour
                     {
                         continue;
                     }
-                    int xHM = (int)(x / (float)terrainData.detailWidth * terrainData.heightmapWidth);
-                    int yHM = (int)(y / (float)terrainData.detailHeight * terrainData.heightmapHeight);
+                    int xHM = (int)(x / (float)terrainData.detailWidth * terrainData.heightmapResolution);
+                    int yHM = (int)(y / (float)terrainData.detailHeight * terrainData.heightmapResolution);
                     float thisNoise = Utils.Map(Mathf.PerlinNoise(x * details[i].feather, y * details[i].feather), 0, 1, 0.5f, 1);
                     float thisHeightStart = details[i].minHeight * thisNoise - details[i].overlap * thisNoise;
                     float nextHeightStart = details[i].maxHeight * thisNoise + details[i].overlap * thisNoise;
@@ -668,7 +739,7 @@ public class CustomTerrain : MonoBehaviour
             Selection.activeObject = this.gameObject;
         }
         terrainData.terrainLayers = newSplatPrototype;
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
         float[,,] splatMapData = new float[terrainData.alphamapWidth, terrainData.alphamapHeight, terrainData.alphamapLayers];
         for(int y=0;y<terrainData.alphamapHeight;y++)
         {
@@ -715,7 +786,7 @@ public class CustomTerrain : MonoBehaviour
 
     public void Smooth()
     {
-        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapWidth, terrainData.heightmapHeight);
+        float[,] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
         float smoothProgress = 0;
         EditorUtility.DisplayProgressBar("Smoothing Terrain",
                                  "Progress",
@@ -723,14 +794,14 @@ public class CustomTerrain : MonoBehaviour
 
         for (int s = 0; s < smoothAmount; s++)
         {
-            for (int y = 0; y < terrainData.heightmapHeight; y++)
+            for (int y = 0; y < terrainData.heightmapResolution; y++)
             {
-                for (int x = 0; x < terrainData.heightmapWidth; x++)
+                for (int x = 0; x < terrainData.heightmapResolution; x++)
                 {
                     float avgHeight = heightMap[x, y];
                     List<Vector2> neighbours = GenerateNeighbours(new Vector2(x, y),
-                                                                  terrainData.heightmapWidth,
-                                                                  terrainData.heightmapHeight);
+                                                                  terrainData.heightmapResolution,
+                                                                  terrainData.heightmapResolution);
                     foreach (Vector2 n in neighbours)
                     {
                         avgHeight += heightMap[(int)n.x, (int)n.y];
@@ -752,7 +823,7 @@ public class CustomTerrain : MonoBehaviour
     public void MidPointMisplacement()
     {
         float[,] heightMap = GetHeightMap();
-        int width = terrainData.heightmapWidth - 1;
+        int width = terrainData.heightmapResolution - 1;
         int squareSize = width;
         float heightMin = MPDheightMin;
         float heightMax = MPDheightMax;
@@ -823,7 +894,7 @@ public class CustomTerrain : MonoBehaviour
         float[,] heightMap = GetHeightMap();
         for(int p=0;p<voronoiPeaks;p++)
         {
-            Vector3 peak = new Vector3(UnityEngine.Random.Range(0, terrainData.heightmapWidth), UnityEngine.Random.Range(voronoiMinHeight,voronoiMaxHeight), UnityEngine.Random.Range(0, terrainData.heightmapHeight));
+            Vector3 peak = new Vector3(UnityEngine.Random.Range(0, terrainData.heightmapResolution), UnityEngine.Random.Range(voronoiMinHeight,voronoiMaxHeight), UnityEngine.Random.Range(0, terrainData.heightmapResolution));
             if (heightMap[(int)peak.x, (int)peak.z] < peak.y)
             {
                 heightMap[(int)peak.x, (int)peak.z] = peak.y;
@@ -833,10 +904,10 @@ public class CustomTerrain : MonoBehaviour
                 continue;
             }
             Vector2 peakLocation = new Vector2(peak.x, peak.z);
-            float maxDistance = Vector2.Distance(new Vector2(0, 0), new Vector2(terrainData.heightmapWidth, terrainData.heightmapHeight));
-            for (int y = 0; y < terrainData.heightmapHeight; y++)
+            float maxDistance = Vector2.Distance(new Vector2(0, 0), new Vector2(terrainData.heightmapResolution, terrainData.heightmapResolution));
+            for (int y = 0; y < terrainData.heightmapResolution; y++)
             {
-                for (int x = 0; x < terrainData.heightmapWidth; x++)
+                for (int x = 0; x < terrainData.heightmapResolution; x++)
                 {
                     if (!(x == peak.x && y == peak.z))
                     {
@@ -881,9 +952,9 @@ public class CustomTerrain : MonoBehaviour
     public void Perlin()
     {
         float[,] heightMap = GetHeightMap();
-        for (int y = 0; y < terrainData.heightmapHeight; y++)
+        for (int y = 0; y < terrainData.heightmapResolution; y++)
         {
-            for (int x = 0; x < terrainData.heightmapWidth; x++)
+            for (int x = 0; x < terrainData.heightmapResolution; x++)
             {
 
                 heightMap[x, y] += Utils.FBM((x + perlinOffsetX) * perlinXScale, (y + perlinOffsetY) * perlinYScale, perlinOctaves, perlinPersistance) * perlinHeightScale;
@@ -895,9 +966,9 @@ public class CustomTerrain : MonoBehaviour
     public void MultiplePerlinTerrain()
     {
         float[,] heightMap = GetHeightMap();
-        for (int y = 0; y < terrainData.heightmapHeight; y++)
+        for (int y = 0; y < terrainData.heightmapResolution; y++)
         {
-            for (int x = 0; x < terrainData.heightmapWidth; x++)
+            for (int x = 0; x < terrainData.heightmapResolution; x++)
             {
                 foreach (PerlinParameters p in perlinParameters)
                 {
@@ -935,9 +1006,9 @@ public class CustomTerrain : MonoBehaviour
     public void RandomTerrain()
     {
         float[,] heightMap = GetHeightMap();
-        for(int x=0;x<terrainData.heightmapWidth;x++)
+        for(int x=0;x<terrainData.heightmapResolution;x++)
         {
-            for (int y = 0; y < terrainData.heightmapHeight; y++)
+            for (int y = 0; y < terrainData.heightmapResolution; y++)
             {
                 heightMap[x, y] += UnityEngine.Random.Range(randomHeightRange.x, randomHeightRange.y);
             }
@@ -948,9 +1019,9 @@ public class CustomTerrain : MonoBehaviour
     public void LoadTexture()
     {
         float[,] heightMap = GetHeightMap();
-        for (int x = 0; x < terrainData.heightmapWidth; x++)
+        for (int x = 0; x < terrainData.heightmapResolution; x++)
         {
-            for (int y = 0; y < terrainData.heightmapHeight; y++)
+            for (int y = 0; y < terrainData.heightmapResolution; y++)
             {
                 heightMap[x, y] += heightMapImage.GetPixel((int)(x*heightMapScale.x),(int)(y*heightMapScale.z)).grayscale*heightMapScale.y;
             }
@@ -961,10 +1032,10 @@ public class CustomTerrain : MonoBehaviour
     public void ResetTerrain()
     {
         float[,] heightMap;
-        heightMap = new float[terrainData.heightmapWidth, terrainData.heightmapHeight];
-        for (int x = 0; x < terrainData.heightmapWidth; x++)
+        heightMap = new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
+        for (int x = 0; x < terrainData.heightmapResolution; x++)
         {
-            for (int y = 0; y < terrainData.heightmapHeight; y++)
+            for (int y = 0; y < terrainData.heightmapResolution; y++)
             {
                 heightMap[x, y] = 0;
             }
@@ -1052,3 +1123,4 @@ public class CustomTerrain : MonoBehaviour
         
     }
 }
+#endif

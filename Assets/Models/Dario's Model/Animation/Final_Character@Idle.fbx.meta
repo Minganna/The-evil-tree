@@ -26,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -108,8 +108,814 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: EYES_Low_Poly1:Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandIndex1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandIndex2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandIndex3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandMiddle1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandMiddle2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandMiddle3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandRing1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandRing2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandRing3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandPinky1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandPinky2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:LeftHandPinky3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandIndex1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandIndex2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandIndex3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandMiddle1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandMiddle2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandMiddle3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandRing1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandRing2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandRing3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandPinky1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandPinky2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:RightHandPinky3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: EYES_Low_Poly1:Spine2
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Final_Character@Idle(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Components_Low_Poly2:ZBrush_defualt_group2
+      parentName: Final_Character@Idle(Clone)
+      position: {x: 0.0480517, y: 0.73854107, z: 0.0023426819}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:transform1
+      parentName: Components_Low_Poly2:ZBrush_defualt_group2
+      position: {x: -0.0480517, y: -1.1976181, z: -0.20908618}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armor_Low_Poly:Group32622
+      parentName: Final_Character@Idle(Clone)
+      position: {x: -0, y: -0.45743632, z: -0.20674351}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:transform2
+      parentName: Armor_Low_Poly:Group32622
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: CHARACTER_Low_Poly:Group30307
+      parentName: Final_Character@Idle(Clone)
+      position: {x: -0, y: -0.45743632, z: -0.20674351}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:transform4
+      parentName: CHARACTER_Low_Poly:Group30307
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly:ZBrush_defualt_group
+      parentName: Final_Character@Idle(Clone)
+      position: {x: -0, y: -0.45743632, z: -0.20674351}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:transform3
+      parentName: EYES_Low_Poly:ZBrush_defualt_group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:ZBrush_defualt_group
+      parentName: Final_Character@Idle(Clone)
+      position: {x: -0, y: -0.45743632, z: -0.20674351}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:transform5
+      parentName: EYES_Low_Poly1:ZBrush_defualt_group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Character
+      parentName: Final_Character@Idle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:ZBrush_defualt_group1
+      parentName: Character
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:Hips
+      parentName: Final_Character@Idle(Clone)
+      position: {x: -0.0062223533, y: 0.7419603, z: -0.007171719}
+      rotation: {x: 0.0000000043655746, y: -0.00000004656613, z: -0.000000005820766, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: EYES_Low_Poly1:Spine
+      parentName: EYES_Low_Poly1:Hips
+      position: {x: -0, y: 0.0525605, z: 0.0019142412}
+      rotation: {x: 0.018200826, y: 0.00000006993032, z: 0.0000000038210133, w: 0.99983436}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: EYES_Low_Poly1:Spine1
+      parentName: EYES_Low_Poly1:Spine
+      position: {x: -0, y: 0.061361227, z: 3.189484e-11}
+      rotation: {x: 0.000000035390258, y: -0.00000004672065, z: -0.0000000033949903, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:Spine2
+      parentName: EYES_Low_Poly1:Spine1
+      position: {x: -0, y: 0.07012718, z: -7.362928e-12}
+      rotation: {x: -0.000000013038516, y: 0.000000023479489, z: 0.000000004969506, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:Neck
+      parentName: EYES_Low_Poly1:Spine2
+      position: {x: -0, y: 0.07889298, z: 1.8659477e-10}
+      rotation: {x: -0.01820084, y: 0.000000011745547, z: 0.0000000056079164, w: 0.99983436}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: EYES_Low_Poly1:Head
+      parentName: EYES_Low_Poly1:Neck
+      position: {x: -0, y: 0.03798843, z: 0.016658193}
+      rotation: {x: -0.000000022351742, y: -0.000000034924597, z: -0.000000011641531, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:HeadTop_End
+      parentName: EYES_Low_Poly1:Head
+      position: {x: -0, y: 0.13880143, z: 0.06086539}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:RightShoulder
+      parentName: EYES_Low_Poly1:Spine2
+      position: {x: 0.04228252, y: 0.064570636, z: 0.0007326311}
+      rotation: {x: 0.5826093, y: 0.40421867, z: -0.57245153, w: 0.41167083}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000004}
+    - name: EYES_Low_Poly1:RightArm
+      parentName: EYES_Low_Poly1:RightShoulder
+      position: {x: 5.6364493e-11, y: 0.08938685, z: -0.0000000010541924}
+      rotation: {x: -0.15101415, y: 0.00094850373, z: -0.012998166, w: 0.9884457}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1}
+    - name: EYES_Low_Poly1:RightForeArm
+      parentName: EYES_Low_Poly1:RightArm
+      position: {x: -2.489505e-10, y: 0.15103418, z: 0.0000000028904263}
+      rotation: {x: -0.00591217, y: 0.0034654052, z: 0.03276944, w: 0.9994395}
+      scale: {x: 1.0000005, y: 1.0000008, z: 1.0000001}
+    - name: EYES_Low_Poly1:RightHand
+      parentName: EYES_Low_Poly1:RightForeArm
+      position: {x: 1.0687205e-10, y: 0.121312685, z: 9.475862e-11}
+      rotation: {x: 0.077772826, y: 0.1546945, z: 0.0111039365, w: 0.9848339}
+      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000002}
+    - name: EYES_Low_Poly1:RightHandMiddle1
+      parentName: EYES_Low_Poly1:RightHand
+      position: {x: -0.005884935, y: 0.10063764, z: -0.001957778}
+      rotation: {x: 0.012164017, y: -0.00084017206, z: -0.05155781, w: 0.99859565}
+      scale: {x: 1.0000001, y: 0.9999998, z: 1}
+    - name: EYES_Low_Poly1:RightHandMiddle2
+      parentName: EYES_Low_Poly1:RightHandMiddle1
+      position: {x: -0.000036238584, y: 0.018144008, z: -1.9010102e-10}
+      rotation: {x: 0.016369367, y: -0.00000009377253, z: -0.000000013573297, w: 0.99986607}
+      scale: {x: 1, y: 0.9999997, z: 1.0000002}
+    - name: EYES_Low_Poly1:RightHandMiddle3
+      parentName: EYES_Low_Poly1:RightHandMiddle2
+      position: {x: -0.00005292807, y: 0.017659161, z: 1.9450794e-10}
+      rotation: {x: -0.023631914, y: 0.000000021642025, z: -0.000000008114818, w: 0.9997208}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: EYES_Low_Poly1:RightHandMiddle4
+      parentName: EYES_Low_Poly1:RightHandMiddle3
+      position: {x: 0.00008916659, y: 0.014083738, z: 1.7387619e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:RightHandRing1
+      parentName: EYES_Low_Poly1:RightHand
+      position: {x: 0.008667945, y: 0.10033831, z: 0.005982668}
+      rotation: {x: 0.049097393, y: -0.0031094544, z: -0.021518199, w: 0.9985574}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: EYES_Low_Poly1:RightHandRing2
+      parentName: EYES_Low_Poly1:RightHandRing1
+      position: {x: 0.000209455, y: 0.016982017, z: -2.2481522e-10}
+      rotation: {x: 0.040160023, y: 0.0001194393, z: -0.0026928468, w: 0.9991896}
+      scale: {x: 1.0000002, y: 0.99999946, z: 1.0000006}
+    - name: EYES_Low_Poly1:RightHandRing3
+      parentName: EYES_Low_Poly1:RightHandRing2
+      position: {x: -0.000035480014, y: 0.015957428, z: -8.3101345e-11}
+      rotation: {x: 0.041216742, y: -0.00000010954244, z: -7.674096e-10, w: 0.9991502}
+      scale: {x: 0.9999998, y: 1, z: 1}
+    - name: EYES_Low_Poly1:RightHandRing4
+      parentName: EYES_Low_Poly1:RightHandRing3
+      position: {x: -0.00017397461, y: 0.014696727, z: 1.5527312e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:RightHandPinky1
+      parentName: EYES_Low_Poly1:RightHand
+      position: {x: 0.02093345, y: 0.09139004, z: -0.006706601}
+      rotation: {x: 0.07185255, y: 0.0016770953, z: 0.0260311, w: 0.9970741}
+      scale: {x: 1, y: 0.9999998, z: 0.99999994}
+    - name: EYES_Low_Poly1:RightHandPinky2
+      parentName: EYES_Low_Poly1:RightHandPinky1
+      position: {x: 0.000011613917, y: 0.012541074, z: 1.680312e-10}
+      rotation: {x: -0.04041509, y: -0.00013028782, z: 0.0021385646, w: 0.9991807}
+      scale: {x: 0.9999998, y: 0.99999934, z: 1.0000004}
+    - name: EYES_Low_Poly1:RightHandPinky3
+      parentName: EYES_Low_Poly1:RightHandPinky2
+      position: {x: 0.00018621418, y: 0.010752324, z: 7.1963054e-11}
+      rotation: {x: 0.037137028, y: -0.000052166626, z: -0.012388808, w: 0.99923337}
+      scale: {x: 1.0000001, y: 1.0000005, z: 0.9999998}
+    - name: EYES_Low_Poly1:RightHandPinky4
+      parentName: EYES_Low_Poly1:RightHandPinky3
+      position: {x: -0.00019782783, y: 0.0106497, z: 7.9678736e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:RightHandIndex1
+      parentName: EYES_Low_Poly1:RightHand
+      position: {x: -0.023716459, y: 0.10313296, z: -0.0028740487}
+      rotation: {x: 0.06825729, y: 0.0046463455, z: 0.061945528, w: 0.995732}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+    - name: EYES_Low_Poly1:RightHandIndex2
+      parentName: EYES_Low_Poly1:RightHandIndex1
+      position: {x: 0.00018697784, y: 0.017018836, z: 2.2206052e-10}
+      rotation: {x: 0.040290054, y: 0.000021805981, z: -0.0023420881, w: 0.99918526}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
+    - name: EYES_Low_Poly1:RightHandIndex3
+      parentName: EYES_Low_Poly1:RightHandIndex2
+      position: {x: -0.00012292429, y: 0.015865004, z: 3.2043417e-11}
+      rotation: {x: -0.008962045, y: -0.000000045040213, z: 0.00000000741202, w: 0.9999598}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000001}
+    - name: EYES_Low_Poly1:RightHandIndex4
+      parentName: EYES_Low_Poly1:RightHandIndex3
+      position: {x: -0.00006405449, y: 0.014453166, z: -2.7921415e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:RightHandThumb1
+      parentName: EYES_Low_Poly1:RightHand
+      position: {x: -0.02175177, y: 0.037755795, z: 0.005559345}
+      rotation: {x: -0.06942987, y: -0.02198899, z: 0.36627832, w: 0.92765087}
+      scale: {x: 0.9999998, y: 0.9999997, z: 1}
+    - name: EYES_Low_Poly1:RightHandThumb2
+      parentName: EYES_Low_Poly1:RightHandThumb1
+      position: {x: 0.0010601885, y: 0.035125248, z: 3.1211592e-10}
+      rotation: {x: 0.021559259, y: -0.0012490844, z: -0.042289965, w: 0.998872}
+      scale: {x: 1, y: 1.0000005, z: 1.0000001}
+    - name: EYES_Low_Poly1:RightHandThumb3
+      parentName: EYES_Low_Poly1:RightHandThumb2
+      position: {x: -0.0025807559, y: 0.021421043, z: 7.7390727e-10}
+      rotation: {x: -0.007127222, y: 0.00006931332, z: 0.078180104, w: 0.99691385}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000002}
+    - name: EYES_Low_Poly1:RightHandThumb4
+      parentName: EYES_Low_Poly1:RightHandThumb3
+      position: {x: 0.0015205642, y: 0.013673367, z: -2.3075862e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:LeftShoulder
+      parentName: EYES_Low_Poly1:Spine2
+      position: {x: -0.04228252, y: 0.06455529, z: 0.00031116}
+      rotation: {x: 0.5798191, y: -0.4061728, z: 0.5754268, w: 0.40953335}
+      scale: {x: 1.0000001, y: 0.99999976, z: 0.99999976}
+    - name: EYES_Low_Poly1:LeftArm
+      parentName: EYES_Low_Poly1:LeftShoulder
+      position: {x: -3.946602e-11, y: 0.08938685, z: -0.0000000010548651}
+      rotation: {x: -0.1512716, y: 0.054481633, z: -0.009999751, w: 0.986939}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: EYES_Low_Poly1:LeftForeArm
+      parentName: EYES_Low_Poly1:LeftArm
+      position: {x: 3.317125e-10, y: 0.15110072, z: 7.7675627e-10}
+      rotation: {x: 0.0015989986, y: -0.003600656, z: -0.032244813, w: 0.9994722}
+      scale: {x: 0.9999999, y: 1.0000004, z: 1.0000002}
+    - name: EYES_Low_Poly1:LeftHand
+      parentName: EYES_Low_Poly1:LeftForeArm
+      position: {x: -5.199192e-11, y: 0.12042013, z: -0.0000000017615005}
+      rotation: {x: 0.10298323, y: -0.03681313, z: 0.013372863, w: 0.99391174}
+      scale: {x: 1.0000002, y: 1, z: 0.9999999}
+    - name: EYES_Low_Poly1:LeftHandPinky1
+      parentName: EYES_Low_Poly1:LeftHand
+      position: {x: -0.020797035, y: 0.09821129, z: 0.00073687173}
+      rotation: {x: 0.004123568, y: 0.009512705, z: 0.039948214, w: 0.999148}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000005}
+    - name: EYES_Low_Poly1:LeftHandPinky2
+      parentName: EYES_Low_Poly1:LeftHandPinky1
+      position: {x: 0.00009233305, y: 0.014464685, z: 3.7710633e-12}
+      rotation: {x: 0.038424492, y: 0.000013531181, z: -0.0038559076, w: 0.99925405}
+      scale: {x: 0.9999999, y: 0.9999996, z: 0.9999997}
+    - name: EYES_Low_Poly1:LeftHandPinky3
+      parentName: EYES_Low_Poly1:LeftHandPinky2
+      position: {x: -0.0000735059, y: 0.012326936, z: -5.334719e-12}
+      rotation: {x: -0.04266507, y: 0.00000006119392, z: -0.000000034503614, w: 0.9990894}
+      scale: {x: 1, y: 1.0000007, z: 1.0000006}
+    - name: EYES_Low_Poly1:LeftHandPinky4
+      parentName: EYES_Low_Poly1:LeftHandPinky3
+      position: {x: -0.000018827275, y: 0.010157478, z: -1.5151613e-12}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:LeftHandRing1
+      parentName: EYES_Low_Poly1:LeftHand
+      position: {x: -0.009789045, y: 0.10303756, z: -0.0005298796}
+      rotation: {x: 0.033521473, y: 0.0033718566, z: 0.02788671, w: 0.9990433}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000002}
+    - name: EYES_Low_Poly1:LeftHandRing2
+      parentName: EYES_Low_Poly1:LeftHandRing1
+      position: {x: 0.0000660037, y: 0.017679242, z: 3.1731112e-10}
+      rotation: {x: 0.038827747, y: 0.000042827545, z: -0.0017700313, w: 0.99924433}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1}
+    - name: EYES_Low_Poly1:LeftHandRing3
+      parentName: EYES_Low_Poly1:LeftHandRing2
+      position: {x: -0.0000362252, y: 0.016247649, z: 4.479595e-11}
+      rotation: {x: 0.010362848, y: 0.000000022791262, z: 0.000000015005881, w: 0.9999463}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1.0000004}
+    - name: EYES_Low_Poly1:LeftHandRing4
+      parentName: EYES_Low_Poly1:LeftHandRing3
+      position: {x: -0.000029778774, y: 0.015188397, z: -1.632987e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:LeftHandIndex1
+      parentName: EYES_Low_Poly1:LeftHand
+      position: {x: 0.02345554, y: 0.104490265, z: 0.0011676585}
+      rotation: {x: 0.056175403, y: -0.0056317807, z: -0.052377667, w: 0.9970302}
+      scale: {x: 1.0000001, y: 0.9999998, z: 0.99999994}
+    - name: EYES_Low_Poly1:LeftHandIndex2
+      parentName: EYES_Low_Poly1:LeftHandIndex1
+      position: {x: 0.00004473295, y: 0.016746262, z: -8.805045e-12}
+      rotation: {x: 0.040989876, y: 0.0000033122483, z: -0.0004975028, w: 0.99915946}
+      scale: {x: 1, y: 1.0000005, z: 1.0000004}
+    - name: EYES_Low_Poly1:LeftHandIndex3
+      parentName: EYES_Low_Poly1:LeftHandIndex2
+      position: {x: -0.00003259614, y: 0.015645219, z: -6.921965e-12}
+      rotation: {x: 0.039528206, y: -0.000062779145, z: 0.00031143852, w: 0.99921846}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000001}
+    - name: EYES_Low_Poly1:LeftHandIndex4
+      parentName: EYES_Low_Poly1:LeftHandIndex3
+      position: {x: -0.000012136049, y: 0.013805922, z: 1.3640036e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:LeftHandMiddle1
+      parentName: EYES_Low_Poly1:LeftHand
+      position: {x: 0.007130536, y: 0.103606425, z: -0.004408628}
+      rotation: {x: 0.020017423, y: 0.00074557215, z: 0.037216574, w: 0.99910647}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000005}
+    - name: EYES_Low_Poly1:LeftHandMiddle2
+      parentName: EYES_Low_Poly1:LeftHandMiddle1
+      position: {x: 0.000037365222, y: 0.01845801, z: 5.613451e-11}
+      rotation: {x: 0.023601169, y: 0.000000034691766, z: 0.0000000072504918, w: 0.99972147}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: EYES_Low_Poly1:LeftHandMiddle3
+      parentName: EYES_Low_Poly1:LeftHandMiddle2
+      position: {x: 0.000012721231, y: 0.016982658, z: 1.12176934e-10}
+      rotation: {x: 0.039920624, y: -0.00004126031, z: -0.0009011352, w: 0.9992025}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000006}
+    - name: EYES_Low_Poly1:LeftHandMiddle4
+      parentName: EYES_Low_Poly1:LeftHandMiddle3
+      position: {x: -0.00005008636, y: 0.015757263, z: 4.6127935e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:LeftHandThumb1
+      parentName: EYES_Low_Poly1:LeftHand
+      position: {x: 0.017792804, y: 0.036004867, z: 0.008419733}
+      rotation: {x: 0.025059309, y: -0.0011616683, z: -0.40105903, w: 0.91570866}
+      scale: {x: 0.9999999, y: 1.0000002, z: 1.0000002}
+    - name: EYES_Low_Poly1:LeftHandThumb2
+      parentName: EYES_Low_Poly1:LeftHandThumb1
+      position: {x: -0.0032773195, y: 0.032663535, z: 4.6511112e-10}
+      rotation: {x: 0.030360434, y: -0.001856893, z: 0.056858886, w: 0.9979187}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: EYES_Low_Poly1:LeftHandThumb3
+      parentName: EYES_Low_Poly1:LeftHandThumb2
+      position: {x: 0.0012438161, y: 0.02243448, z: -2.1094763e-10}
+      rotation: {x: 0.0071992427, y: -0.000000026603766, z: -0.00000013170957, w: 0.99997413}
+      scale: {x: 0.9999999, y: 1.0000007, z: 1.0000006}
+    - name: EYES_Low_Poly1:LeftHandThumb4
+      parentName: EYES_Low_Poly1:LeftHandThumb3
+      position: {x: 0.002033501, y: 0.018333128, z: 2.9486508e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:LeftUpLeg
+      parentName: EYES_Low_Poly1:Hips
+      position: {x: -0.080041155, y: -0.029262543, z: 0.0075412393}
+      rotation: {x: -0.0026242707, y: 0.0597474, z: 0.9972486, w: 0.04380296}
+      scale: {x: 0.9999999, y: 1.0000001, z: 0.9999998}
+    - name: EYES_Low_Poly1:LeftLeg
+      parentName: EYES_Low_Poly1:LeftUpLeg
+      position: {x: -6.841212e-10, y: 0.29978183, z: -5.862005e-10}
+      rotation: {x: -0.17435718, y: -0.006851652, z: 0.03866389, w: 0.9838993}
+      scale: {x: 1.0000001, y: 0.99999976, z: 1}
+    - name: EYES_Low_Poly1:LeftFoot
+      parentName: EYES_Low_Poly1:LeftLeg
+      position: {x: -1.5235904e-10, y: 0.33603594, z: 0.000000004416455}
+      rotation: {x: 0.6028667, y: 0.11087752, z: -0.0850974, w: 0.785504}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000005}
+    - name: EYES_Low_Poly1:LeftToeBase
+      parentName: EYES_Low_Poly1:LeftFoot
+      position: {x: -0.0000000025360565, y: 0.14800008, z: 0.000000005466247}
+      rotation: {x: 0.15504207, y: 0.0013760476, z: 0.008767541, w: 0.9878681}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: EYES_Low_Poly1:LeftToe_End
+      parentName: EYES_Low_Poly1:LeftToeBase
+      position: {x: -6.6106115e-10, y: 0.049117174, z: 5.7732253e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EYES_Low_Poly1:RightUpLeg
+      parentName: EYES_Low_Poly1:Hips
+      position: {x: 0.080041155, y: -0.029262543, z: 0.0040407158}
+      rotation: {x: 0.00072024495, y: 0.01628886, z: 0.9988912, w: -0.044166632}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
+    - name: EYES_Low_Poly1:RightLeg
+      parentName: EYES_Low_Poly1:RightUpLeg
+      position: {x: 3.0175393e-10, y: 0.29781106, z: 5.109131e-10}
+      rotation: {x: -0.08272214, y: 0.0032857545, z: -0.039553106, w: 0.9957821}
+      scale: {x: 1.0000005, y: 1.0000005, z: 1.0000004}
+    - name: EYES_Low_Poly1:RightFoot
+      parentName: EYES_Low_Poly1:RightLeg
+      position: {x: 2.2496296e-10, y: 0.33007056, z: 0.0000000047353743}
+      rotation: {x: 0.5636085, y: -0.119673744, z: 0.08295233, w: 0.8131068}
+      scale: {x: 0.9999997, y: 1.0000002, z: 0.99999994}
+    - name: EYES_Low_Poly1:RightToeBase
+      parentName: EYES_Low_Poly1:RightFoot
+      position: {x: 5.675508e-11, y: 0.14709158, z: -0.0000000011829364}
+      rotation: {x: 0.15202092, y: -0.0011755002, z: -0.007642503, w: 0.988347}
+      scale: {x: 1.0000002, y: 1.0000007, z: 1.0000004}
+    - name: EYES_Low_Poly1:RightToe_End
+      parentName: EYES_Low_Poly1:RightToeBase
+      position: {x: 9.5711224e-11, y: 0.04685765, z: -3.059356e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -120,13 +926,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 2
   additionalBone: 0
   userData: 
   assetBundleName: 
