@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
     float groundRayDist = 1.7f;
     bool GameWon = false;
 
+    public GameObject HandBrain;
+    public GameObject HandPungolo;
+    public GameObject HandPinHead;
+
+    GameObject currentHeld;
+
     public GameObject root;
 
     const float groundAccel = 5;
@@ -139,6 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public void stopeating()
     {
+        currentHeld.SetActive(false);
         anim.SetBool("EatMonster", false);
         this.transform.localScale = new Vector3(this.transform.localScale.x + 1, this.transform.localScale.y + 1, this.transform.localScale.z + 1);
         size += 1;
@@ -182,6 +189,7 @@ public class PlayerController : MonoBehaviour
             if(braineaten<maxbrain)
             {
                 reaction = true;
+                currentHeld = HandBrain;
             }
             else
             {
@@ -193,6 +201,7 @@ public class PlayerController : MonoBehaviour
             if (pinheadeaten < maxpin)
             {
                 reaction = true;
+                currentHeld = HandPinHead;
             }
             else
             {
@@ -204,6 +213,7 @@ public class PlayerController : MonoBehaviour
             if (spikeeaten < maxspike)
             {
                 reaction = true;
+                currentHeld = HandPungolo;
             }
             else
             {
@@ -212,6 +222,7 @@ public class PlayerController : MonoBehaviour
         }
         if (reaction)
         {
+            currentHeld.SetActive(true);
             anim.SetBool("EatMonster", true);
         }
         else
@@ -278,6 +289,7 @@ public class PlayerController : MonoBehaviour
             root.transform.position = new Vector3(root.transform.position.x, root.transform.position.y - 3, root.transform.position.z);
             size -= 1;
             slider.value -= 1;
+            FindObjectOfType<ThirdPersonMovements>().shoulderPos -= 1;
             this.transform.localScale = new Vector3(this.transform.localScale.x - 1, this.transform.localScale.y - 1, this.transform.localScale.z - 1);
             StartCoroutine(hittableagain());
         }
