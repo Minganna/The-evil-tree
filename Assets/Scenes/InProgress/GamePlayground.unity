@@ -2799,7 +2799,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721393743}
-  m_LocalRotation: {x: -0.009023418, y: -0.23479244, z: -0.0021796578, w: 0.9720012}
+  m_LocalRotation: {x: -0.00902339, y: -0.23479244, z: -0.002179651, w: 0.9720012}
   m_LocalPosition: {x: 521.77, y: 3.0487497, z: 281.65}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_Children:
@@ -4801,7 +4801,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1183984367}
   - component: {fileID: 1183984366}
-  - component: {fileID: 1183984365}
   - component: {fileID: 1183984364}
   m_Layer: 0
   m_Name: MiniMap
@@ -4822,14 +4821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa68c4ffdb14e24b9d8e9d28b139264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &1183984365
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183984363}
-  m_Enabled: 1
 --- !u!20 &1183984366
 Camera:
   m_ObjectHideFlags: 0
@@ -5365,6 +5356,107 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1361262067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1705411392874423030, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
+  m_PrefabInstance: {fileID: 1964766755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1361262068
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361262067}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2426748b0d8a52a41b12140aac886675, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1376110079
 GameObject:
   m_ObjectHideFlags: 0
@@ -8204,7 +8296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.009023418
+      value: -0.00902339
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -8212,7 +8304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0021796578
+      value: -0.002179651
       objectReference: {fileID: 0}
     - target: {fileID: 1705411392874423025, guid: 8555ad8537e045441a6d584052edba1e, type: 3}
       propertyPath: m_LocalRotation.w
