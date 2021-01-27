@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class CreaturesMaster : MonoBehaviour
 {
-    int brainrandom, pooprandom;
+    int brainrandom, pooprandom,pinrandom;
     List<GameObject> targets=new List<GameObject>();
     List<Bot> creatures= new List<Bot>();
     GameObject Player;
-    bool runfromPlayer=false;
+    public bool runfromPlayer=false;
     Bot scaredBot;
+    public bool sendDataToPlayer = true;
+    GameObject brainTarget;
+    GameObject PungoloTarget;
+    GameObject PinHeadTarget;
+    int currentTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +24,13 @@ public class CreaturesMaster : MonoBehaviour
         {
             targets.Add(targ);
         }
+        Player = GameObject.FindGameObjectWithTag("Player");
+        brainrandom = getRandomTarget();
+        brainTarget = targets[brainrandom];
+        pooprandom = getRandomTarget();
+        PungoloTarget = targets[pooprandom];
+        pinrandom = getRandomTarget();
+        PinHeadTarget = targets[pinrandom];
         foreach (Bot creature in FindObjectsOfType<Bot>())
         {
             creatures.Add(creature);
@@ -30,26 +42,41 @@ public class CreaturesMaster : MonoBehaviour
             {
                 creature.target = GetPungoloRandom();
             }
+            if (creature.tc == TypeOfCreature.pinhead)
+            {
+                creature.target = GetPinheadRandom();
+            }
         }
-        Player = GameObject.FindGameObjectWithTag("Player");
-        brainrandom = getRandomTarget();
-        pooprandom = getRandomTarget();
+
+
     }
 
      int getRandomTarget()
     {
-        return Random.Range(0, targets.Count);
+        if (currentTarget < targets.Count-1)
+        {
+            currentTarget += 1;
+        }
+        else
+        {
+            currentTarget = 0;
+        }
+
+        return currentTarget;
 
     }
 
     public GameObject GetBrainRandom()
     {
-      
-        return targets[brainrandom];
+        return brainTarget;
     }
     public GameObject GetPungoloRandom()
     {
-        return targets[pooprandom];
+        return PungoloTarget;
+    }
+    public GameObject GetPinheadRandom()
+    {
+        return PinHeadTarget;
     }
     void Update()
     {
@@ -57,19 +84,20 @@ public class CreaturesMaster : MonoBehaviour
         foreach(Bot creature in creatures)
         {
             float distancefromp = Vector3.Distance(creature.transform.position, Player.transform.position);
-            Debug.Log("distance from p" + distancefromp);
+          
             if (creature.target)
             {
                 if (!creature.runfromPlayer)
                 {
                     if (Vector3.Distance(creature.transform.position, Player.transform.position) > 10)
                     {
+                        
                         creature.FindTargetTochase();
                         creature.Seek(creature.target.transform.position);
                     }
                     else if (FindObjectOfType<PlayerController>().ScareMonster)
                     {
-                        Debug.Log("Arrived Here");
+                       
                         runfromPlayer = true;
                         scaredBot = creature;
                     }
@@ -78,6 +106,11 @@ public class CreaturesMaster : MonoBehaviour
                 {
                     if (Vector3.Distance(creature.transform.position, Player.transform.position) < 10)
                     {
+                        if(sendDataToPlayer)
+                        {
+                            sendDataToPlayer = false;
+                            FindObjectOfType<PlayerController>().reactionToInteract(runfromPlayer, System.Enum.GetName(typeof(TypeOfCreature), creature.tc));
+                        }
                         creature.target = Player;
                         creature.Evade();
                     }
@@ -88,11 +121,19 @@ public class CreaturesMaster : MonoBehaviour
                             if (scaredBot.tc == TypeOfCreature.brain)
                             {
                                 brainrandom = getRandomTarget();
+                                brainTarget = targets[brainrandom];
                             }
-                            else
+                            if(scaredBot.tc == TypeOfCreature.pinhead)
+                            {
+                                pinrandom = getRandomTarget();
+                                PinHeadTarget = targets[pinrandom];
+                            }
+                            if (scaredBot.tc == TypeOfCreature.pungolo)
                             {
                                 pooprandom = getRandomTarget();
+                                PungoloTarget = targets[pooprandom];
                             }
+
                         }
                        
                         creature.runfromPlayer = false;

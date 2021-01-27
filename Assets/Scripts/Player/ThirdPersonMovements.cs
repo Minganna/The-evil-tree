@@ -7,6 +7,7 @@ public class ThirdPersonMovements : MonoBehaviour
 {
 
     [SerializeField]Transform child;
+    public float shoulderPos=1.5f;
 
     void Start()
     {
@@ -16,7 +17,7 @@ public class ThirdPersonMovements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            Vector3 newPosition = new Vector3(child.localPosition.x, child.localPosition.y + 1.5f, child.localPosition.z);
+            Vector3 newPosition = new Vector3(child.localPosition.x, child.localPosition.y + shoulderPos, child.localPosition.z);
             this.transform.position = newPosition;
             child.transform.rotation = this.transform.rotation;
         

@@ -6,7 +6,7 @@ public class FollowPath : MonoBehaviour
 {
 
     Transform goal;
-    float speed = 3.0f;
+    public float speed = 2.0f;
     float accuracy = 1.0f;
     float rotSpeed = 1.0f;
     public GameObject wpManager;
@@ -25,15 +25,13 @@ public class FollowPath : MonoBehaviour
 
     public void GoToPlayer()
     {
-        g.AStar(currentNode, wps[2]);
+        g.AStar(currentNode, wps[4]);
         currentWP = 0;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        Debug.Log("currentWP"+currentWP);
-        Debug.Log(startMovements);
         if (startMovements == false)
         {
             Debug.Log("here");

@@ -26,9 +26,14 @@ public class CameraLookatTargets : MonoBehaviour
         {
             currentTarget = 0;
         }
-        else
+        if(fp.GetWP()>= 2&&fp.GetWP() < 4)
         {
             currentTarget = 1;
+        }
+        else if(fp.GetWP() >= 4)
+        {
+            currentTarget = 2;
+            FindObjectOfType<FollowPath>().speed = 4;
         }
         Vector3 direction = targets[currentTarget].position - this.transform.position;
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotSpeed);

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public enum TypeOfCreature
 {
-   brain, bubble, pungolo
+   brain, pinhead, pungolo
 }
 public class Bot : MonoBehaviour
 {
@@ -31,9 +31,13 @@ public class Bot : MonoBehaviour
             
 
         }
-        else
+        if(tc == TypeOfCreature.brain)
         {
             target = cm.GetBrainRandom();
+        }
+        if(tc == TypeOfCreature.pinhead)
+        {
+            target = cm.GetPinheadRandom();
         }
     }
 
